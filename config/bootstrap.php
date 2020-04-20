@@ -18,6 +18,9 @@ $container = new Container();
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+$middleware = require __DIR__ . '/../config/middleware.php';
+$middleware($app);
+
 $routes = require __DIR__ . '/../config/routes.php';
 $routes($app);
 
