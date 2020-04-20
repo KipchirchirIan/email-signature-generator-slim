@@ -1,0 +1,13 @@
+{
+  "name": "KipchirchirIan/emailsignaturegenerator",
+  "description": "A REST API to generate email signatures",
+  "authors": [
+    {
+      "name": "Ian Kipchirchir",
+      "email": "potterke4@gmail.com"
+    }
+  ],
+  "require": {
+    
+  }
+}
