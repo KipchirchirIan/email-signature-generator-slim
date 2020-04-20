@@ -16,7 +16,9 @@ $container = new Container();
 
 // Set a container to create App with AppFactory
 AppFactory::setContainer($container);
+$app = AppFactory::create();
 
+$routes = require __DIR__ . '/../config/routes.php';
+$routes($app);
 
-
-return AppFactory::create();
+return $app;

@@ -6,6 +6,6 @@
  * Time: 10:32 AM
  */
 
-$app = require  __DIR__ . '/../config/bootstrap.php';
+require  __DIR__ . '/../config/bootstrap.php';
 
 $app->run();
