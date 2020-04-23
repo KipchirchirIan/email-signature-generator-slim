@@ -8,6 +8,7 @@
 use Slim\App;
 
 return function (App $app) {
+    $settings = $app->getContainer()->get('settings');
 
     // Parse json, form data and xml
     $app->addBodyParsingMiddleware();
@@ -26,5 +27,8 @@ return function (App $app) {
      * Note: This middleware should be added last. It will not handle any exceptions/errors
      * for middleware added after it.
      */
-    $app->addErrorMiddleware(true, false, false);
+    $app->addErrorMiddleware($settings['displayErrorDetails'],
+        $settings['logErrorDetails'],
+        $settings['logErrors']
+    );
 };

@@ -14,6 +14,10 @@ require __DIR__ . '/../vendor/autoload.php';
 // Create a container using PHP-DI
 $container = new Container();
 
+// Pass our app settings to the container
+$settings = require __DIR__ . '/../config/settings.php';
+$settings($container);
+
 // Set a container to create App with AppFactory
 AppFactory::setContainer($container);
 $app = AppFactory::create();
