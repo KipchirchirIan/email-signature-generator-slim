@@ -6,26 +6,26 @@
  * Time: 2:46 PM
  */
 
-use DI\Container;
-use Slim\Factory\AppFactory;
+use DI\ContainerBuilder;
+use Slim\App;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// Create a container using PHP-DI
-$container = new Container();
+$containerBuilder = new ContainerBuilder();
 
-// Pass our app settings to the container
-$settings = require __DIR__ . '/../config/settings.php';
-$settings($container);
+// Set up settings
+$containerBuilder->addDefinitions(__DIR__ . '/../config/container.php');
 
-// Set a container to create App with AppFactory
-AppFactory::setContainer($container);
-$app = AppFactory::create();
+// Build PHP-DI Container Instance
+$container = $containerBuilder->build();
 
-$middleware = require __DIR__ . '/../config/middleware.php';
-$middleware($app);
+// Create App Instance
+$app = $container->get(App::class);
 
-$routes = require __DIR__ . '/../config/routes.php';
-$routes($app);
+// Register routes
+(require __DIR__ . '/routes.php')($app);
+
+// Register middleware
+(require __DIR__ . '/middleware.php')($app);
 
 return $app;
