@@ -6,9 +6,9 @@
  * Time: 2:46 PM
  */
 use Slim\App;
+use Slim\Middleware\ErrorMiddleware;
 
 return function (App $app) {
-    $settings = $app->getContainer()->get('settings');
 
     // Parse json, form data and xml
     $app->addBodyParsingMiddleware();
@@ -18,17 +18,6 @@ return function (App $app) {
      */
     $app->addRoutingMiddleware();
 
-    /**
-     * @param bool $displayErrorDetails -> Should be set to false in production
-     * @param bool $logErrors -> Parameter is passed to the default ErrorHandler
-     * @param bool $logErrorDetails -> Display error details in error log
-     * which can be replaced by a callable of your choice.
-     *
-     * Note: This middleware should be added last. It will not handle any exceptions/errors
-     * for middleware added after it.
-     */
-    $app->addErrorMiddleware($settings['displayErrorDetails'],
-        $settings['logErrorDetails'],
-        $settings['logErrors']
-    );
+    // Catch errors and exceptions
+    $app->add(ErrorMiddleware::class);
 };
