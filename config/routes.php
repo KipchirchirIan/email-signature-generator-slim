@@ -15,9 +15,13 @@ return function(App $app) {
 
     $app->group('/v1', function (RouteCollectorProxy $group) {
 
+        $group->get('', \App\Action\Home\HomeAction::class);
+
         $group->get('/', \App\Action\Home\HomeAction::class);
 
         $group->post('/users', \App\Action\User\UserCreateAction::class);
+
+        $group->get('/users', \App\Action\User\UserListDataTableAction::class);
     });
 
 };
