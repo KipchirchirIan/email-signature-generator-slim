@@ -11,7 +11,6 @@ namespace App\Responder;
 use App\Routing\UrlGenerator;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use Slim\Views\Twig;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 
@@ -23,11 +22,6 @@ use Symfony\Component\Serializer\Exception\NotEncodableValueException;
  */
 final class Responder
 {
-    /**
-     * @var Twig
-     */
-    private $twig;
-
     /**
      * @var UrlGenerator
      */
@@ -41,13 +35,11 @@ final class Responder
     /**
      * Responder constructor.
      *
-     * @param Twig $twig $twig The twig engine
      * @param UrlGenerator $urlGenerator $urlGenerator The url generator
      * @param ResponseFactoryInterface $responseFactory $responseFactory The response factory
      */
-    public function __construct(Twig $twig, UrlGenerator $urlGenerator, ResponseFactoryInterface $responseFactory)
+    public function __construct(UrlGenerator $urlGenerator, ResponseFactoryInterface $responseFactory)
     {
-        $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
         $this->responseFactory = $responseFactory;
     }
@@ -60,24 +52,6 @@ final class Responder
     public function createResponse(): ResponseInterface
     {
         return $this->responseFactory->createResponse()->withHeader('Content-Type', 'text/html; charset=utf-8');
-    }
-
-    /**
-     * Output rendered template
-     *
-     * @param ResponseInterface $response The response
-     * @param string $template Template pathname relative to templates directory
-     * @param array $data Associative array of template variables
-     *
-     * @return ResponseInterface The response
-     *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function render(ResponseInterface $response, string $template, array $data = []): ResponseInterface
-    {
-        return $this->twig->render($response, $template, $data);
     }
 
     /**
@@ -96,7 +70,7 @@ final class Responder
     public function redirect(ResponseInterface $response, string $destination, array $data = [], array $queryParams = []): ResponseInterface
     {
         if (!filter_var($destination, FILTER_VALIDATE_URL)) {
-            $destination = $this-$this->urlGenerator->fullUrlFor($destination, $data, $queryParams);
+            $destination = $this->urlGenerator->fullUrlFor($destination, $data, $queryParams);
         }
 
         return $response->withStatus(302)->withHeader('Location', $destination);
@@ -109,7 +83,7 @@ final class Responder
      * response to the client.
      *
      * @param ResponseInterface $response The response
-     * @param $data<array> The data
+     * @param mixed $data data
      * @param int $options Json encoding options
      *
      * @throws NotEncodableValueException
