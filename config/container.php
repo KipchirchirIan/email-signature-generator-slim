@@ -26,9 +26,9 @@ return [
     },
 
     // For the responder
-//    ResponseFactoryInterface::class => function(ContainerInterface $container) {
-//        return $container->get(App::class)->getResponseFactory();
-//    }
+    ResponseFactoryInterface::class => function(ContainerInterface $container) {
+        return $container->get(App::class)->getResponseFactory();
+    },
 
     ErrorMiddleware::class => function (ContainerInterface $container) {
         $app = $container->get(App::class);
