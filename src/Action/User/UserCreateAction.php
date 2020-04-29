@@ -10,18 +10,45 @@ namespace App\Action\User;
 
 use App\Domain\User\Data\UserCreatorData;
 use App\Domain\User\Service\UserCreator;
+use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * Class UserCreateAction
+ *
+ * @package App\Action\User
+ */
 final class UserCreateAction
 {
+    /**
+     * @var UserCreator
+     */
     private $userCreator;
 
-    public function __construct(UserCreator $userCreator)
+    /**
+     * @var Responder
+     */
+    private $responder;
+
+    /**
+     * UserCreateAction constructor.
+     *
+     * @param Responder $responder The responder
+     * @param UserCreator $userCreator The service
+     */
+    public function __construct(Responder $responder, UserCreator $userCreator)
     {
         $this->userCreator = $userCreator;
+        $this->responder = $responder;
     }
 
+    /**
+     * @param ServerRequestInterface $request The request
+     * @param ResponseInterface $response The response
+     *
+     * @return ResponseInterface The response
+     */
     public function  __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         // Collect input from HTTP request
@@ -29,10 +56,16 @@ final class UserCreateAction
 
         // Todo: Do mapping in mapper class
         $user = new UserCreatorData();
-        $user->username = $data['username'];
-        $user->firstName = $data['first_name'];
-        $user->lastName = $data['last_name'];
         $user->email = $data['email'];
+        $user->name = $data['name'];
+        $user->company = $data['company'];
+        $user->department = $data['department'];
+        $user->position = $data['position'];
+        $user->phone = $data['phone'];
+        $user->mobile = $data['mobile'];
+        $user->website = $data['website'];
+        $user->skype = $data['skype'];
+        $user->address = $data['address'];
 
         // Invoke Domain with input and retain the results
         $userId = $this->userCreator->createUser($user);
@@ -43,8 +76,6 @@ final class UserCreateAction
         ];
 
         // Build the HTTP response
-        $response->getBody()->write((string)json_encode($result));
-
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $this->responder->json($response, $result);
     }
 }
