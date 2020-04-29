@@ -9,7 +9,7 @@
 namespace App\Routing;
 
 
-use http\Exception\UnexpectedValueException;
+use UnexpectedValueException;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Routing\RouteContext;
