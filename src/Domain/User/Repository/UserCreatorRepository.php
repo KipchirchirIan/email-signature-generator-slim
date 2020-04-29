@@ -31,17 +31,30 @@ class UserCreatorRepository
     public function insertUser(UserCreatorData $user): int
     {
         $row = [
-            'username' => $user->username,
-            'first_name' => $user->firstName,
-            'last_name' => $user->lastName,
             'email' => $user->email,
+            'name' => $user->name,
+            'company' => $user->company,
+            'position' => $user->position,
+            'department' => $user->department,
+            'phone' => $user->phone,
+            'mobile' => $user->mobile,
+            'website' => $user->website,
+            'skype' => $user->skype,
+            'address' => $user->address
         ];
 
-        $sql = "INSERT INTO users SET ";
-        $sql .= "username=:username, ";
-        $sql .= "first_name=:first_name, ";
-        $sql .= "last_name=:last_name, ";
-        $sql .= "email=:email;";
+        $sql = "INSERT INTO tbl_users SET ";
+        $sql .= "email=:email, ";
+        $sql .= "name=:name, ";
+        $sql .= "company=:company, ";
+        $sql .= "position=:position, ";
+        $sql .= "department=:department, ";
+        $sql .= "phone=:phone, ";
+        $sql .= "mobile=:mobile, ";
+        $sql .= "website=:website, ";
+        $sql .= "skype=:skype, ";
+        $sql .= "address=:address;";
+
 
         $this->connection->prepare($sql)->execute($row);
 

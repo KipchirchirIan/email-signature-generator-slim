@@ -33,8 +33,8 @@ final class UserCreator
     public function createUser(UserCreatorData $user): int
     {
         // Validation
-        if (empty($user->username)) {
-            throw new InvalidArgumentException('Username required');
+        if (empty($user->email)) {
+            throw new InvalidArgumentException('Email required');
         }
 
         // Insert user
