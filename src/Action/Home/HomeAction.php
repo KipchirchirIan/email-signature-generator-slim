@@ -6,17 +6,47 @@
  * Time: 7:16 AM
  */
 
-namespace App\Action;
+namespace App\Action\Home;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Responder\Responder;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
-
+/**
+ * Class HomeAction
+ *
+ * @package App\Action
+ */
 final class HomeAction
 {
-    public function __invoke(Request $request, Response $response)
+    /**
+     * @var
+     */
+    private $responder;
+
+    /**
+     * HomeAction constructor.
+     *
+     * @param Responder $responder The responder
+     */
+    public function __construct(Responder $responder)
     {
-        $response->getBody()->write('Welcome to Email Signature Generator REST API');
-        return $response;
+        $this->responder = $responder;
+    }
+
+    /**
+     * @param ServerRequestInterface $request The request
+     * @param ResponseInterface $response The response
+     *
+     * @return ResponseInterface
+     */
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $viewData = [
+            'msg' => 'Welcome to Email Signature Generator REST API',
+            'now' => date('d.m.Y H:i:s')
+        ];
+
+        return $this->responder->json($response, $viewData);
     }
 }
