@@ -12,5 +12,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteCollectorProxy;
 
 return function(App $app) {
-    $app->get('/', \App\Action\HomeAction::class);
+    $app->get('/', \App\Action\Home\HomeAction::class);
+
+    $app->post('/users', \App\Action\User\UserCreateAction::class);
 };
