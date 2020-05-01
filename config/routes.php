@@ -7,8 +7,6 @@
  */
 
 use Slim\App;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteCollectorProxy;
 
 return function(App $app) {
@@ -22,6 +20,8 @@ return function(App $app) {
         $group->post('/users', \App\Action\User\UserCreateAction::class);
 
         $group->get('/users', \App\Action\User\UserListDataTableAction::class);
+
+        $group->put('/users/{id}', \App\Action\User\UserUpdateAction::class);
     });
 
 };
