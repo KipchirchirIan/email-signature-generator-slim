@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9512686225c037ad85cdb9b7e9e5b25c",
+    "content-hash": "9dc419803151957cf189ef61dd4c22a9",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -758,6 +758,52 @@
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
+            "name": "selective/array-reader",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/selective-php/array-reader.git",
+                "reference": "5b8d34891d84598e5f066efe86d2d8da54c6f08d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/selective-php/array-reader/zipball/5b8d34891d84598e5f066efe86d2d8da54c6f08d",
+                "reference": "5b8d34891d84598e5f066efe86d2d8da54c6f08d",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/chronos": "^1.2|^2",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "overtrue/phplint": "^1.1",
+                "phpstan/phpstan-shim": "^0.9|^0.10|^0.11",
+                "phpunit/phpunit": "^6|^7",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Selective\\ArrayReader\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A strictly typed array reader",
+            "homepage": "https://github.com/selective-php/array-reader",
+            "keywords": [
+                "array",
+                "reader",
+                "strict",
+                "strictly",
+                "strong",
+                "typed"
+            ],
+            "time": "2020-01-05T18:48:59+00:00"
+        },
+        {
             "name": "selective/config",
             "version": "0.2.0",
             "source": {
@@ -1256,16 +1302,16 @@
         },
         {
             "name": "symfony/serializer",
-            "version": "v5.0.7",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "5f9e12db25c6f993b4999159957b75d32a3f4ade"
+                "reference": "aa5d99bb179b5166cfe15d79dc067f516f3f4343"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/5f9e12db25c6f993b4999159957b75d32a3f4ade",
-                "reference": "5f9e12db25c6f993b4999159957b75d32a3f4ade",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/aa5d99bb179b5166cfe15d79dc067f516f3f4343",
+                "reference": "aa5d99bb179b5166cfe15d79dc067f516f3f4343",
                 "shasum": ""
             },
             "require": {
@@ -1334,7 +1380,7 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "https://symfony.com",
-            "time": "2020-03-27T16:56:45+00:00"
+            "time": "2020-04-12T16:45:47+00:00"
         },
         {
             "name": "twig/twig",
