@@ -54,18 +54,7 @@ final class UserCreateAction
         // Collect input from HTTP request
         $data = (array)$request->getParsedBody();
 
-        // Todo: Do mapping in mapper class
-        $user = new UserCreatorData();
-        $user->email = $data['email'];
-        $user->name = $data['name'];
-        $user->company = $data['company'];
-        $user->department = $data['department'];
-        $user->position = $data['position'];
-        $user->phone = $data['phone'];
-        $user->mobile = $data['mobile'];
-        $user->website = $data['website'];
-        $user->skype = $data['skype'];
-        $user->address = $data['address'];
+        $user = new UserCreatorData($data);
 
         // Invoke Domain with input and retain the results
         $userId = $this->userCreator->createUser($user);

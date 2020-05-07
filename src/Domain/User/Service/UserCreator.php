@@ -28,7 +28,8 @@ final class UserCreator
 
     /**
      * @param UserCreatorData $user The user
-     * @return int
+     *
+     * @return int Id of last row inserted
      */
     public function createUser(UserCreatorData $user): int
     {

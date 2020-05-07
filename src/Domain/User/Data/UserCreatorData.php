@@ -8,9 +8,15 @@
 
 namespace App\Domain\User\Data;
 
+use Selective\ArrayReader\ArrayReader;
 
  final class UserCreatorData
 {
+     /**
+      * @var int|null
+      */
+    public $id;
+
      /**
       * @var string|null
       */
@@ -61,4 +67,21 @@ namespace App\Domain\User\Data;
       */
     public $address;
 
-}
+    public function __construct(array $array = [])
+    {
+        $data = new ArrayReader($array);
+
+        $this->id = $data->findInt('user_id');
+        $this->email = $data->findString('email');
+        $this->name = $data->findString('name');
+        $this->company = $data->findString('company');
+        $this->position = $data->findString('position');
+        $this->department = $data->findString('department');
+        $this->mobile = $data->findString('mobile');
+        $this->phone = $data->findString('phone');
+        $this->address = $data->findString('address');
+        $this->skype = $data->getString('skype', null);
+        $this->website = $data->findString('website');
+    }
+
+ }
