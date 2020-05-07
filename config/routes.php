@@ -21,6 +21,8 @@ return function(App $app) {
 
         $group->get('/users', \App\Action\User\UserListDataTableAction::class);
 
+        $group->get('/users/{id}', \App\Action\User\UserViewAction::class);
+
         $group->put('/users/{id}', \App\Action\User\UserUpdateAction::class);
     });
 
