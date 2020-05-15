@@ -24,6 +24,8 @@ return function(App $app) {
         $group->get('/users/{id}', \App\Action\User\UserViewAction::class);
 
         $group->put('/users/{id}', \App\Action\User\UserUpdateAction::class);
+
+        $group->delete('/users/{id}', \App\Action\User\UserDeleteAction::class);
     });
 
 };
