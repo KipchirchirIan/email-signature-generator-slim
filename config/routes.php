@@ -26,6 +26,8 @@ return function(App $app) {
         $group->put('/users/{id}', \App\Action\User\UserUpdateAction::class);
 
         $group->delete('/users/{id}', \App\Action\User\UserDeleteAction::class);
+
+        $group->post('/templates', \App\Action\Template\TemplateCreateAction::class);
     });
 
 };
