@@ -28,6 +28,10 @@ return function(App $app) {
         $group->delete('/users/{id}', \App\Action\User\UserDeleteAction::class);
 
         $group->post('/templates', \App\Action\Template\TemplateCreateAction::class);
+
+        $group->get('/templates/{id}', \App\Action\Template\TemplateViewAction::class);
+
+        $group->get('/templates', \App\Action\Template\TemplateListAction::class);
     });
 
 };
