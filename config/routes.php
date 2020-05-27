@@ -32,6 +32,8 @@ return function(App $app) {
         $group->get('/templates/{id}', \App\Action\Template\TemplateViewAction::class);
 
         $group->get('/templates', \App\Action\Template\TemplateListAction::class);
+
+        $group->delete('/templates/{id}', \App\Action\Template\TemplateDeleteAction::class);
     });
 
 };
