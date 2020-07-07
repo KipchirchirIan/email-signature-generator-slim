@@ -40,6 +40,8 @@ return function(App $app) {
         $group->post('/users/{id}/templates', \App\Action\UserTemplate\UserTemplateCreateAction::class);
 
         $group->get('/users/{id}/templates', \App\Action\UserTemplate\UserTemplateViewAction::class);
+
+        $group->delete('/users/{id}/templates', \App\Action\UserTemplate\UserTemplateDeleteAction::class);
     });
 
 };
