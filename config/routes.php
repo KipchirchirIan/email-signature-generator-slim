@@ -38,6 +38,8 @@ return function(App $app) {
         $group->put('/templates/{id}', \App\Action\Template\TemplateUpdateAction::class);
 
         $group->post('/users/{id}/templates', \App\Action\UserTemplate\UserTemplateCreateAction::class);
+
+        $group->get('/users/{id}/templates', \App\Action\UserTemplate\UserTemplateViewAction::class);
     });
 
 };
