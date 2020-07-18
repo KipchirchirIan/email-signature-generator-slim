@@ -46,6 +46,8 @@ return function(App $app) {
         $group->post('/users/{id}/images', \App\Action\UserImage\UserImageCreateAction::class);
 
         $group->get('/users/{id}/images', \App\Action\UserImage\UserImageViewAction::class);
+
+        $group->put('/users/{id}/images', \App\Action\UserImage\UserImageUpdateAction::class);
     });
 
 };
