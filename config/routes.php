@@ -44,6 +44,8 @@ return function(App $app) {
         $group->delete('/users/{id}/templates', \App\Action\UserTemplate\UserTemplateDeleteAction::class);
 
         $group->post('/users/{id}/images', \App\Action\UserImage\UserImageCreateAction::class);
+
+        $group->get('/users/{id}/images', \App\Action\UserImage\UserImageViewAction::class);
     });
 
 };
