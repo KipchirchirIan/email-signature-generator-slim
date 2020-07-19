@@ -50,6 +50,8 @@ return function(App $app) {
         $group->put('/users/{id}/images', \App\Action\UserImage\UserImageUpdateAction::class);
 
         $group->post('/socials', \App\Action\Social\SocialCreateAction::class);
+
+        $group->get('/socials/{id}', \App\Action\Social\SocialViewAction::class);
     });
 
 };
