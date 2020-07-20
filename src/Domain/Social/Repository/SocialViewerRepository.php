@@ -9,6 +9,7 @@
 namespace App\Domain\Social\Repository;
 
 use App\Domain\Social\Data\SocialCreatorData;
+use App\Domain\Social\Data\SocialViewData;
 use DomainException;
 use PDO;
 
@@ -64,14 +65,14 @@ final class SocialViewerRepository
      */
     public function findAllSocials(): array
     {
-        $sql = "SELECT * FROM tbl_socials WHERE social_id = :socialId";
+        $sql = "SELECT * FROM tbl_socials";
 
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         $rows = $stmt->fetchAll();
 
         foreach ($rows as $row) {
-            $socialData[] = new SocialCreatorData($row);
+            $socialData[] = new SocialViewData($row);
         }
 
         return $socialData;

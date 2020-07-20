@@ -51,6 +51,8 @@ return function(App $app) {
 
         $group->post('/socials', \App\Action\Social\SocialCreateAction::class);
 
+        $group->get('/socials', \App\Action\Social\SocialListAction::class);
+
         $group->get('/socials/{id}', \App\Action\Social\SocialViewAction::class);
     });
 
