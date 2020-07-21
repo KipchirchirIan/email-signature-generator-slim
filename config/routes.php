@@ -58,6 +58,8 @@ return function(App $app) {
         $group->put('/socials/{id}', \App\Action\Social\SocialUpdateAction::class);
 
         $group->delete('/socials/{id}', \App\Action\Social\SocialDeleteAction::class);
+
+        $group->post('/users/{id}/socials', \App\Action\UserSocial\UserSocialCreateAction::class);
     });
 
 };
