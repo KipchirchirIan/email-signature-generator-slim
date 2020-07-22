@@ -62,6 +62,8 @@ return function(App $app) {
         $group->post('/users/{id}/socials', \App\Action\UserSocial\UserSocialCreateAction::class);
 
         $group->get('/users/{id}/socials', \App\Action\UserSocial\UserSocialListAction::class);
+
+        $group->put('/users/{id}/socials', \App\Action\UserSocial\UserSocialUpdateAction::class);
     });
 
 };
