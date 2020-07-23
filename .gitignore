@@ -1,3 +1,5 @@
 /.idea
 /vendor
 /config/env.php
+/build
+/.phpunit.result.cache
