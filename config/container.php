@@ -8,6 +8,9 @@
 
 use Psr\Container\ContainerInterface;
 use Selective\Config\Configuration;
+use Selective\Validation\Encoder\JsonEncoder;
+use Selective\Validation\Middleware\ValidationExceptionMiddleware;
+use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -15,8 +18,12 @@ use Slim\Middleware\ErrorMiddleware;
 
 return [
     // Application settings
-    Configuration::class => function () {
-        return new Configuration(require __DIR__ . '/settings.php');
+//    Configuration::class => function () {
+//        return new Configuration(require __DIR__ . '/settings.php');
+//    },
+
+    'settings' => function () {
+        return require __DIR__ . '/settings.php';
     },
 
     App::class => function (ContainerInterface $container) {
@@ -26,7 +33,7 @@ return [
     },
 
     // For the responder
-    ResponseFactoryInterface::class => function(ContainerInterface $container) {
+    ResponseFactoryInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getResponseFactory();
     },
 
@@ -43,7 +50,7 @@ return [
         );
     },
 
-    PDO::class => function(ContainerInterface $container) {
+    PDO::class => function (ContainerInterface $container) {
         $settings = $container->get(Configuration::class)->getArray('db');
 
         $host = $settings['host'];
@@ -56,6 +63,16 @@ return [
         $dsn = "mysql:host=$host:$port;dbname=$dbname;charset=$charset";
 
         return new PDO($dsn, $username, $password, $flags);
+    },
+
+    ValidationExceptionMiddleware::class => function (ContainerInterface $container) {
+        $factory = $container->get(ResponseFactoryInterface::class);
+
+        return new ValidationExceptionMiddleware(
+            $factory,
+            new ErrorDetailsResultTransformer(),
+            new JsonEncoder()
+        );
     }
 
 ];
