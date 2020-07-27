@@ -11,7 +11,7 @@ namespace App\Domain\UserTemplate\Repository;
 use PDO;
 use DomainException;
 
-final class UserTemplateCreatorRepository
+class UserTemplateCreatorRepository
 {
     private $connection;
 
@@ -33,7 +33,7 @@ final class UserTemplateCreatorRepository
 
         $this->connection->prepare($sql)->execute($params);
 
-        return (int)$this->connection->lastInsertId();
+        return $this->connection->lastInsertId();
     }
 
     public function findUserById(int $userId): bool

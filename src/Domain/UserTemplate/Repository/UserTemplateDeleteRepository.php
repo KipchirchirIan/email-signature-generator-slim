@@ -10,7 +10,7 @@ namespace App\Domain\UserTemplate\Repository;
 
 use PDO;
 
-final class UserTemplateDeleteRepository
+class UserTemplateDeleteRepository
 {
     /**
      * @var PDO The connections

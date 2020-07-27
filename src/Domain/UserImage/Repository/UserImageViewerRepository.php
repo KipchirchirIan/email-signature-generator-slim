@@ -10,7 +10,7 @@ namespace App\Domain\UserImage\Repository;
 
 use PDO;
 use DomainException;
-final class UserImageViewerRepository
+class UserImageViewerRepository
 {
     private $connection;
 

@@ -12,7 +12,7 @@ use App\Domain\UserImage\Data\UserImageCreatorData;
 use PDO;
 use DomainException;
 
-final class UserImageCreatorRepository
+class UserImageCreatorRepository
 {
     /**
      * @var PDO

@@ -9,10 +9,11 @@
 namespace App\Domain\User\Repository;
 
 use App\Domain\User\Data\UserCreatorData;
+use App\Domain\User\Data\UserViewData;
 use PDO;
 use DomainException;
 
-final class UserViewerRepository
+class UserViewerRepository
 {
     /**
      * @var PDO The connection
@@ -34,9 +35,9 @@ final class UserViewerRepository
      *
      * @param int $userId The user id
      *
-     * @return array The user row
+     * @return UserViewData The user row
      */
-    public function getUserById(int $userId): array
+    public function getUserById(int $userId): UserViewData
     {
         $params = [
             'userId' => $userId
@@ -52,7 +53,10 @@ final class UserViewerRepository
             throw new DomainException(sprintf('User not found: %d', $userId));
         }
 
-        return $row;
+        $user = new UserViewData($row);
+        $user->id = $userId;
+
+        return $user;
     }
 
     /**

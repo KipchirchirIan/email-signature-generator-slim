@@ -12,7 +12,7 @@ namespace App\Domain\UserSocial\Repository;
 use App\Domain\UserSocial\Data\UserSocialUpdaterData;
 use PDO;
 
-final class UserSocialUpdaterRepository
+class UserSocialUpdaterRepository
 {
     /**
      * @var PDO

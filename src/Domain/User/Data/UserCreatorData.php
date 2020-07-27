@@ -80,7 +80,7 @@ use Selective\ArrayReader\ArrayReader;
         $this->mobile = $data->findString('mobile');
         $this->phone = $data->findString('phone');
         $this->address = $data->findString('address');
-        $this->skype = $data->getString('skype', null);
+        $this->skype = $data->findString('skype', null);
         $this->website = $data->findString('website');
     }
 

@@ -8,11 +8,13 @@
 
 namespace App\Domain\User\Data;
 
+use Selective\ArrayReader\ArrayReader;
+
 /**
  * Class UserViewData
  * @package App\Domain\User\Data
  */
- class UserViewData
+class UserViewData
 {
     /**
      * @var int
@@ -68,4 +70,13 @@ namespace App\Domain\User\Data;
      * @var string|null
      */
 //    public $address;
+
+    public function __construct(array $array = [])
+    {
+        $data = new ArrayReader($array);
+
+        $this->id = $data->findInt('id');
+        $this->email = $data->findString('email');
+        $this->name = $data->findString('name');
+    }
 }

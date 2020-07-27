@@ -14,7 +14,7 @@ use PDO;
  * Class TemplateDeleteRepository
  * @package App\Domain\Template\Repository
  */
-final class TemplateDeleteRepository
+class TemplateDeleteRepository
 {
     /**
      * @var PDO

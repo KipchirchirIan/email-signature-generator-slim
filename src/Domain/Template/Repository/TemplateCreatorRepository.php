@@ -16,7 +16,7 @@ use PDO;
  * Class TemplateCreatorRepository
  * @package App\Domain\Template\Repository
  */
-final class TemplateCreatorRepository
+class TemplateCreatorRepository
 {
     private $connection;
 

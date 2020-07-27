@@ -12,7 +12,7 @@ namespace App\Domain\Social\Repository;
 use DomainException;
 use PDO;
 
-final class SocialDeleteRepository
+class SocialDeleteRepository
 {
     /**
      * @var PDO

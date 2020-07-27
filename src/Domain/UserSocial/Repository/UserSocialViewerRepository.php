@@ -13,7 +13,7 @@ use App\Domain\UserSocial\Data\UserSocialCreatorData;
 use DomainException;
 use PDO;
 
-final class UserSocialViewerRepository
+class UserSocialViewerRepository
 {
     /**
      * @var PDO

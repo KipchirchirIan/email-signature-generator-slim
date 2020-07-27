@@ -12,7 +12,7 @@ namespace App\Domain\Template\Repository;
 use App\Domain\Template\Data\TemplateCreatorData;
 use PDO;
 
-final class TemplateUpdaterRepository
+class TemplateUpdaterRepository
 {
     /**
      * @var PDO

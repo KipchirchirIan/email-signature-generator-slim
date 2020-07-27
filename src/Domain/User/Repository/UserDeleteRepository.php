@@ -14,7 +14,7 @@ use PDO;
  * Class UserDeleteRepository
  * @package App\Domain\User\Repository
  */
-final class UserDeleteRepository
+class UserDeleteRepository
 {
     /**
      * @var PDO

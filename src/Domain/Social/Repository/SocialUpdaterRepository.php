@@ -13,7 +13,7 @@ use App\Domain\Social\Data\SocialCreatorData;
 use DomainException;
 use PDO;
 
-final class SocialUpdaterRepository
+class SocialUpdaterRepository
 {
     /**
      * @var PDO

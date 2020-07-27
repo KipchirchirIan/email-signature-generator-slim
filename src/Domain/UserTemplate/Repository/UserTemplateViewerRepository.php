@@ -10,7 +10,7 @@ namespace App\Domain\UserTemplate\Repository;
 
 use PDO;
 
-final class UserTemplateViewerRepository
+class UserTemplateViewerRepository
 {
     /**
      * @var PDO

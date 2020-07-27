@@ -13,7 +13,7 @@ use App\Domain\Social\Data\SocialViewData;
 use DomainException;
 use PDO;
 
-final class SocialViewerRepository
+class SocialViewerRepository
 {
     /**
      * @var PDO The connection

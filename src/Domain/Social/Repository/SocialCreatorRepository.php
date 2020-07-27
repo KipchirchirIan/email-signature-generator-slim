@@ -10,7 +10,7 @@ namespace App\Domain\Social\Repository;
 
 use App\Domain\Social\Data\SocialCreatorData;
 use PDO;
-final class SocialCreatorRepository
+class SocialCreatorRepository
 {
     private $connection;
 

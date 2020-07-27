@@ -15,7 +15,7 @@ use DomainException;
  * Class TemplateViewerRepository
  * @package App\Domain\Template\Repository
  */
-final class TemplateViewerRepository
+class TemplateViewerRepository
 {
     /**
      * @var PDO The connection

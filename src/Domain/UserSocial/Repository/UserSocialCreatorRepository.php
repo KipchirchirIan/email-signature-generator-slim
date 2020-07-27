@@ -12,7 +12,7 @@ namespace App\Domain\UserSocial\Repository;
 use App\Domain\UserSocial\Data\UserSocialCreatorData;
 use PDO;
 
-final class UserSocialCreatorRepository
+class UserSocialCreatorRepository
 {
     /**
      * @var PDO

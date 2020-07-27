@@ -13,7 +13,7 @@ use App\Domain\UserImage\Data\UserImageUpdaterData;
 use DomainException;
 use PDO;
 
-final class UserImageUpdaterRepository
+class UserImageUpdaterRepository
 {
     /**
      * @var PDO The connection
