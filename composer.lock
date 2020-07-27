@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1df5ff99a70e89aff892b9ee84e9ddbb",
+    "content-hash": "b3e6b1599f9037c4596b9cddb6038cc2",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -797,6 +797,56 @@
                 "strict"
             ],
             "time": "2020-04-03T17:48:12+00:00"
+        },
+        {
+            "name": "selective/validation",
+            "version": "0.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/selective-php/validation.git",
+                "reference": "974b90abafc6990dcb754c0b7d018472f0eccc68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/selective-php/validation/zipball/974b90abafc6990dcb754c0b7d018472f0eccc68",
+                "reference": "974b90abafc6990dcb754c0b7d018472f0eccc68",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "psr/http-factory": "^1.0",
+                "psr/http-server-middleware": "^1.0"
+            },
+            "require-dev": {
+                "fig/http-message-util": "^1.1",
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "overtrue/phplint": "^1.1",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^7 || ^8 || ^9",
+                "relay/relay": "^2.0",
+                "slim/psr7": "^1",
+                "squizlabs/php_codesniffer": "^3.4",
+                "symfony/validator": "^5.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Selective\\Validation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Validation error collector and transformer",
+            "keywords": [
+                "middleware",
+                "psr15",
+                "slim",
+                "slim4",
+                "validation"
+            ],
+            "time": "2020-06-17T20:01:00+00:00"
         },
         {
             "name": "slim/psr7",
