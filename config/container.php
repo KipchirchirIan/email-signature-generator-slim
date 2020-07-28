@@ -6,8 +6,8 @@
  * Time: 4:05 PM
  */
 
+use App\Handler\DefaultErrorHandler;
 use Psr\Container\ContainerInterface;
-use Selective\Config\Configuration;
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
 use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
@@ -18,10 +18,6 @@ use Slim\Middleware\ErrorMiddleware;
 
 return [
     // Application settings
-//    Configuration::class => function () {
-//        return new Configuration(require __DIR__ . '/settings.php');
-//    },
-
     'settings' => function () {
         return require __DIR__ . '/settings.php';
     },
@@ -39,15 +35,19 @@ return [
 
     ErrorMiddleware::class => function (ContainerInterface $container) {
         $app = $container->get(App::class);
-        $settings = $container->get(Configuration::class)->getArray('error_handler_middleware');
+        $config = $container->get('settings')['error'];
 
-        return new ErrorMiddleware(
+        $errorMiddleWare = new ErrorMiddleware(
             $app->getCallableResolver(),
             $app->getResponseFactory(),
-            (bool)$settings['displayErrorDetails'],
-            (bool)$settings['logErrors'],
-            (bool)$settings['logErrorDetails']
+            (bool)$config['displayErrorDetails'],
+            (bool)$config['logErrors'],
+            (bool)$config['logErrorDetails']
         );
+
+        $errorMiddleWare->setDefaultErrorHandler($container->get(DefaultErrorHandler::class));
+
+        return $errorMiddleWare;
     },
 
     PDO::class => function (ContainerInterface $container) {

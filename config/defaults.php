@@ -25,7 +25,7 @@ $settings['public'] = $settings['root'] . '/public';
 
 $settings['app_name'] = 'Custom Email Signature Generator - REST API';
 
-$settings['error_handler_middleware'] = [
+$settings['error'] = [
     // Should be set to false in production
     'displayErrorDetails' => true,
 
