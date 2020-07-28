@@ -7,7 +7,7 @@
  */
 
 // Load default settings
-$settings = require __DIR__ . 'settings.php';
+$settings = require __DIR__ . '/defaults.php';
 
 // Load environment configuration
 if (file_exists(__DIR__ . '/../env.php')) {
