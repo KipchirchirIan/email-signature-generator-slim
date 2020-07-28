@@ -59,4 +59,23 @@ $settings['db'] = [
     ]
 ];
 
+$settings['jwt'] = [
+    // Issuer name
+    'issuer' => 'www.cmshosting.xyz',
+
+    // Max lifetime in seconds
+    'lifetime' => 14400,
+
+    // The public key
+    'public_key' => '-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoyKL5ETz3XdGfMwG2VJ1
+k7+nrOXw9ncVWmsya2B4Rb307jFKNq6GhWavbA1ZWsoIcvpUbXAYuPnTBgHAsiI3
+mLwuuMKB9taugq1Dpx95a+XUTZk5gne0AtJqMa6TH5zeRoaLNo5ytjXn7H50ri8r
+wpuK1UHvePiKsBEMWX7/6EE8bMhYRCFh/Uw0odSnVKGWFLDpHyoAs2PtQJ4CmWqe
+NR8sGJEXHO3rqP5143j5Y/VURYIYDbI0LcrJsdclB17PExjilWiK2iIP+RwW5/MV
+u6o5gHLvvUDC7qmMEx4PveEp9V504/JPef07JG6zsXiWxqMGwRrJeomE94jUnv7g
+HQIDAQAB
+-----END PUBLIC KEY-----',
+];
+
 return $settings;
