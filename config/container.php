@@ -51,7 +51,7 @@ return [
     },
 
     PDO::class => function (ContainerInterface $container) {
-        $settings = $container->get(Configuration::class)->getArray('db');
+        $settings = $container->get('settings')['db'];
 
         $host = $settings['host'];
         $port = $settings['port'];
