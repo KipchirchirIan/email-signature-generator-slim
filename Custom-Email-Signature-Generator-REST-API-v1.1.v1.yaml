@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  title: Custom Email Signature Generator v1.1
+  version: '1.1'
+  description: Custom Email Signature Generator REST API
+  contact:
+    name: CMS Hosting LLC
+    url: cmshosting.xyz
+    email: potterke4@gmail.com
+servers:
+  - url: 'http://localhost:8080/v1'
+    description: base_url
+tags:
+  - name: users
+  - name: templates
+  - name: socials
+  - name: tokens
+paths:
+  /tokens:
+    post:
+      summary: Get authentication token
+      operationId: get-token
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+                    example: Bearer
+                    default: Bearer
+                  expires_in:
+                    type: string
+                    example: '14400'
+                required:
+                  - access_token
+                  - token_type
+              examples:
+                token-details:
+                  value:
+                    access_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRiNzkxZjU1LTYzZmUtNDcxYS05MjIzLTMzYjA1NWM1YTViMSJ9.eyJpc3MiOiJ3d3cuY21zaG9zdGluZy54eXoiLCJqdGkiOiJkYjc5MWY1NS02M2ZlLTQ3MWEtOTIyMy0zM2IwNTVjNWE1YjEiLCJpYXQiOjE1OTU5NTEzMjUsIm5iZiI6MTU5NTk1MTMyNSwiZXhwIjoxNTk1OTY1NzI1LCJ1aWQiOiJ0ZXN0QGNtc2hvc3RpbmcueHl6In0.QvjwBCYOcAftK2DGGv_0PPZYbar2xNA1e8MANu_LzY3-LxYFHKQtkaVLTPfislhLLFoCHa78rt7DhYjhk4EGs6XUZmeAAtm7u-w57FKIvvFUaryg1Kt5mgEGXl4GIGTzLcxrZUiA5Z0_pwTxFSmB7BudigDv_eeSPnFJekYFwW2X1nGyVpKVI_xSsxTmRihN3whINZvx4ytIqfVExEqyyxp9gNl7VJYEs3YS9Ke2EjudlshohXmYrP5aBRK410EN65b3SxSTNwNDYw4K8lpOHXHykncLr7FY8x3S0bsb33NWbXBEvX67zRSrRmEPtpdOUJoXaiC0qlozgylpCv5qIQ
+                    token_type: Bearer
+                    expires_in: 14400
+      tags:
+        - tokens
+      description: Returns an authentication token that will be used to access protected endpoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  format: email
+                  example: test@example.com
+                password:
+                  type: string
+              required:
+                - username
+                - password
+            examples:
+              user-credentials:
+                value:
+                  username: user@mail.com
+                  password: secret
+        description: The user's credentials
+      parameters:
+        - schema:
+            type: string
+            example: application/json
+            default: application/json
+          in: header
+          name: Content-Type
+          required: true
+          description: ''
+      security: []
+components:
+  schemas: {}
+  securitySchemes:
+    access_token:
+      type: http
+      scheme: bearer
+security:
+  - access_token: []
