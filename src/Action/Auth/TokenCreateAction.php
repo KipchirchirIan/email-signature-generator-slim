@@ -10,6 +10,7 @@ namespace App\Action\Auth;
 
 
 use App\Auth\JwtAuth;
+use App\Domain\User\Service\SuperUserAuth;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,10 +27,20 @@ final class TokenCreateAction
      */
     private $responder;
 
-    public function __construct(JwtAuth $jwtAuth, Responder $responder)
+    /**
+     * @var SuperUserAuth
+     */
+    private $superUserAuth;
+
+    public function __construct(
+        JwtAuth $jwtAuth,
+        Responder $responder,
+        SuperUserAuth $superUserAuth
+    )
     {
         $this->jwtAuth = $jwtAuth;
         $this->responder = $responder;
+        $this->superUserAuth = $superUserAuth;
     }
 
     public function __invoke(
@@ -43,7 +54,7 @@ final class TokenCreateAction
         $password = (string)($data['password'] ?? '');
 
         // Validate login
-        $isValidLogin = ($username === 'test@cmshosting.xyz' && $password === 'a7\'s+k^:e-BA~nW-');
+        $isValidLogin = $this->superUserAuth->authenticate($username, $password);
 
         if (!$isValidLogin) {
             // Invalid authentication credentials
