@@ -6,6 +6,7 @@
  * Time: 2:46 PM
  */
 
+use App\Middleware\CorsMiddleware;
 use App\Middleware\UrlGeneratorMiddleware;
 use Slim\App;
 use Slim\Middleware\ErrorMiddleware;
@@ -16,6 +17,7 @@ return function (App $app) {
     $app->addBodyParsingMiddleware();
 
     $app->add(UrlGeneratorMiddleware::class);
+    $app->add(CorsMiddleware::class);
     /**
      * The routing middleware should be added earlier than the ErrorMiddleware
      * Otherwise exceptions thrown from it will not be handled by the middleware
