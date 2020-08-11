@@ -14,6 +14,7 @@ use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Slim\Interfaces\RouteParserInterface;
 use Slim\Middleware\ErrorMiddleware;
 
 return [
@@ -31,6 +32,11 @@ return [
     // For the responder
     ResponseFactoryInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getResponseFactory();
+    },
+
+    // The Slim RouteParser
+    RouteParserInterface::class => function (ContainerInterface $container) {
+        return $container->get(App::class)->getRouteCollector()->getRouteParser();
     },
 
     ErrorMiddleware::class => function (ContainerInterface $container) {
