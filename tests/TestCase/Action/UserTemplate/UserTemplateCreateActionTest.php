@@ -13,7 +13,7 @@ use App\Domain\UserTemplate\Repository\UserTemplateCreatorRepository;
 use App\Test\AppTestTrait;
 use PHPUnit\Framework\TestCase;
 
-class UserTemplateCreateActionTest //extends TestCase
+class UserTemplateCreateActionTest extends TestCase
 {
     use AppTestTrait;
 

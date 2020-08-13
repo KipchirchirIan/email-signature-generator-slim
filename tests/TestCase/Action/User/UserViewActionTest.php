@@ -49,14 +49,18 @@ class UserViewActionTest extends TestCase
         $user->name = 'John Doe';
         $user->email = 'johndoe@example.com';
 
+        $expected = [
+            'user' => [
+                'id' => 1,
+                'email' => 'johndoe@example.com',
+                'name' => 'John Doe'
+            ]
+        ];
+
         return [
             'user' => [
                 $user,
-                 [
-                    'id' => 1,
-                    'email' => 'johndoe@example.com',
-                    'name' => 'John Doe'
-                ]
+                 $expected
             ]
         ];
     }

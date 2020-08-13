@@ -13,7 +13,7 @@ use App\Domain\UserImage\Repository\UserImageCreatorRepository;
 use App\Test\AppTestTrait;
 use PHPUnit\Framework\TestCase;
 
-class UserImageCreateActionTest //extends TestCase
+class UserImageCreateActionTest extends TestCase
 {
     use AppTestTrait;
 
@@ -33,10 +33,12 @@ class UserImageCreateActionTest //extends TestCase
         $response = $this->app->handle($request);
 
         $this->assertJsonData($response, [
-            'id' => 2,
-            'logo' => 'logo2.png',
-            'banner' => 'banner2.jpeg',
-            'userId' => 2
+            '2' => [
+                'id' => 2,
+                'logo' => 'logo2.png',
+                'banner' => 'banner2.jpeg',
+                'userId' => 2
+            ]
         ]);
         $this->assertSame('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertSame(200, $response->getStatusCode());
@@ -45,7 +47,7 @@ class UserImageCreateActionTest //extends TestCase
 //    public function testWithInvalidUser(): void
 //    {
 //        $this->mock(UserImageCreatorRepository::class)
-//            ->method('insertUserImage')->willReturn(11);
+//            ->method('userExists')->willReturn(true);
 //
 //        $request = $this->createJsonRequest(
 //            'POST',
@@ -57,10 +59,22 @@ class UserImageCreateActionTest //extends TestCase
 //        );
 //        $response = $this->app->handle($request);
 //
-//        $this->assertStringContainsString('User not found', (string)$response->getBody());
-//        $this->assertSame('text/html', $response->getHeaderLine('Content-Type'));
-//        $this->assertSame(500, $response->getStatusCode());
-//        $this->expectException(\DomainException::class);
+//        $this->assertJsonData(
+//            $response,
+//            [
+//                'Error' => [
+//                    'Status Code' => 400,
+//                    'Reason' => 'Bad Request'
+//                ],
+//                'Details' => [
+//                    'code' => 0,
+//                    'file' => '/opt/lampp/htdocs/emailsignaturegen/src/Domain/UserImage/Service/UserImageCreator.php',
+//                    'message' => 'User not found: 99'
+//                ]
+//            ]
+//        );
+//
+//        $this->assertSame('application/json', $response->getHeaderLine('Content-Type'));
+//        $this->assertSame(400, $response->getStatusCode());
 //    }
-
 }

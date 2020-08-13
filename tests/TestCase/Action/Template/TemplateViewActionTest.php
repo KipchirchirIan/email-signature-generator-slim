@@ -48,17 +48,21 @@ class TemplateViewActionTest extends TestCase
             'updated_at' => '2020-05-16 05:05:19'
         ];
 
+        $expected = [
+            'template' => [
+                'template_id' => '1',
+                'template_name' => 'template 1',
+                'template_desc' => 'This is template 1',
+                'template_filename' => 'template1.html',
+                'created_at' => '2020-05-16 05:05:19',
+                'updated_at' => '2020-05-16 05:05:19'
+            ]
+        ];
+
         return [
             'templateview' => [
                 $template,
-                [
-                    'template_id' => '1',
-                    'template_name' => 'template 1',
-                    'template_desc' => 'This is template 1',
-                    'template_filename' => 'template1.html',
-                    'created_at' => '2020-05-16 05:05:19',
-                    'updated_at' => '2020-05-16 05:05:19'
-                ]
+                $expected
             ]
         ];
     }

@@ -23,7 +23,7 @@ class SocialViewActionTest extends TestCase
      *
      * @param array $social Social media platform
      */
-    public function testAction(array $social, SocialViewData $socialView): void
+    public function testAction(array $social, SocialViewData $expected): void
     {
         $this->mock(SocialViewerRepository::class)
             ->method('getSocialById')->willReturn($social);
@@ -31,7 +31,7 @@ class SocialViewActionTest extends TestCase
         $request = $this->createRequest('GET', 'v1/socials/1');
         $response = $this->app->handle($request);
 
-        $this->assertJsonData($response, (array)$socialView);
+        $this->assertJsonData($response, (array)$expected);
         $this->assertSame('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertSame(200, $response->getStatusCode());
     }

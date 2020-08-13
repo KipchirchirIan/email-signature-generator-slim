@@ -55,25 +55,29 @@ class UserTemplateViewActionTest extends TestCase
             ]
         ];
 
+        $expected = [
+            'templates' => [
+                [
+                    'utpl_id' => '6',
+                    'user_id' => '2',
+                    'template_id' => '2',
+                    'updated_at' => '2020-07-07 04:06:11',
+                    'created_at' => '2020-07-07 04:06:11',
+                ],
+                [
+                    'utpl_id' => '7',
+                    'user_id' => '2',
+                    'template_id' => '5',
+                    'updated_at' => '2020-07-25 13:21:02',
+                    'created_at' => '2020-07-25 13:21:02',
+                ]
+            ]
+        ];
+
         return [
             'usertemplates' => [
                 $templates,
-                [
-                    [
-                        'utpl_id' => '6',
-                        'user_id' => '2',
-                        'template_id' => '2',
-                        'updated_at' => '2020-07-07 04:06:11',
-                        'created_at' => '2020-07-07 04:06:11',
-                    ],
-                    [
-                        'utpl_id' => '7',
-                        'user_id' => '2',
-                        'template_id' => '5',
-                        'updated_at' => '2020-07-25 13:21:02',
-                        'created_at' => '2020-07-25 13:21:02',
-                    ]
-                ]
+                $expected
             ]
         ];
     }

@@ -13,7 +13,7 @@ use App\Domain\Template\Repository\TemplateViewerRepository;
 use App\Test\AppTestTrait;
 use PHPUnit\Framework\TestCase;
 
-class TemplateListAction extends TestCase
+class TemplateListActionTest extends TestCase
 {
     use AppTestTrait;
 
@@ -33,7 +33,7 @@ class TemplateListAction extends TestCase
 
         $this->assertJsonData($response, $expected);
         $this->assertSame('application/json', $response->getHeaderLine('Content-Type'));
-        $this->assertSame(404, $response->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
     }
 
     public function provideTemplateListAction()
@@ -69,7 +69,7 @@ class TemplateListAction extends TestCase
                         'updated_at' => '2020-05-16 05:05:19',
                     ],
                     [
-                        'template_id' => '1',
+                        'template_id' => '3',
                         'template_name' => 'template 3',
                         'template_desc' => 'This is template 3',
                         'template_filename' => 'template_3.html',
