@@ -38,14 +38,14 @@ final class UserTemplateCreator
         // Todo: Should probably check if user exists
 //        $user  = new UserViewer(new UserViewerRepository(new PDO()));
 //        $userExists = $user->getUserViewData($userId);
-        if (!$this->repository->findUserById($userId)) {
-            throw new DomainException(sprintf('User does not exist: %d', $userId));
-        }
+//        if (!$this->repository->findUserById($userId)) {
+//            throw new DomainException(sprintf('User does not exist: %d', $userId));
+//        }
 
         // Todo: Should probably check if template exists
-        if (!$this->repository->getTemplateById($templateId)) {
-            throw new DomainException(sprintf('Template does not exist: %d', $templateId));
-        }
+//        if (!$this->repository->getTemplateById($templateId)) {
+//            throw new DomainException(sprintf('Template does not exist: %d', $templateId));
+//        }
 
         // Todo: Check if user already has this template in their saved lists
         if ($this->repository->findUserTemplateByTemplateId($userId, $templateId)) {

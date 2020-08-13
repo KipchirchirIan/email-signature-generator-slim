@@ -45,9 +45,9 @@ final class UserImageCreator
         }
 
         // Check if user exists
-        if (!$this->repository->userExists($userId)) {
-            throw new DomainException(sprintf('User not found: %d', $userId));
-        }
+//        if (!$this->repository->userExists($userId)) {
+//            throw new DomainException(sprintf('User not found: %d', $userId));
+//        }
 
         // Insert data
         $userImageId = $this->repository->insertUserImage($userId, $userImage);
