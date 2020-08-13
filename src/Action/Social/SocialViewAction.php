@@ -56,12 +56,7 @@ final class SocialViewAction
         // Invoke the domain(service class)
         $social = $this->socialViewer->getSocialViewData($socialId);
 
-        // Prepare the view data
-        $viewData = [
-          'social' => $social
-        ];
-
         // Build the HTTP response
-        return $this->responder->json($response, $viewData);
+        return $this->responder->json($response, $social);
     }
 }
