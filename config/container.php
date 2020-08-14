@@ -6,6 +6,7 @@
  * Time: 4:05 PM
  */
 
+use App\Auth\JwtAuth;
 use App\Handler\DefaultErrorHandler;
 use Psr\Container\ContainerInterface;
 use Selective\Validation\Encoder\JsonEncoder;
@@ -37,6 +38,17 @@ return [
     // The Slim RouteParser
     RouteParserInterface::class => function (ContainerInterface $container) {
         return $container->get(App::class)->getRouteCollector()->getRouteParser();
+    },
+
+    JwtAuth::class => function (ContainerInterface $container) {
+        $config = $container->get('settings')['jwt'];
+
+        $issuer = (string)$config['issuer'];
+        $lifetime = (int)$config['lifetime'];
+        $privateKey = (string)$config['private_key'];
+        $publicKey = (string)$config['public_key'];
+
+        return new JwtAuth($issuer, $lifetime, $privateKey, $publicKey);
     },
 
     ErrorMiddleware::class => function (ContainerInterface $container) {

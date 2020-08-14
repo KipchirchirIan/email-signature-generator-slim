@@ -9,5 +9,7 @@ $settings['db']['username'] = 'root';
 $settings['db']['password'] = '';
 $settings['jwt']['private_key'] = '-----BEGIN RSA PRIVATE KEY-----
 *** Enter your RSA Private Key here ***
+=======
+Enter your private key here.....
 -----END RSA PRIVATE KEY-----
 ';
