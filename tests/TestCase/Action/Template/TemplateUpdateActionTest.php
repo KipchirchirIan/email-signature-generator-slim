@@ -30,7 +30,8 @@ class TemplateUpdateActionTest extends TestCase
                 'template_desc' => 'This is template 1',
                 'template_filename' => 'template1.html'
             ]
-        );
+        )->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
+
         $response = $this->app->handle($request);
 
         $this->assertJsonData($response, ['result' => true]);

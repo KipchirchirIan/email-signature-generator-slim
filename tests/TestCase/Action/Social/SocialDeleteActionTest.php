@@ -22,7 +22,8 @@ class SocialDeleteActionTest extends TestCase
         $this->mock(SocialDeleteRepository::class)
             ->method('deleteSocialById')->willReturn(true);
 
-        $request = $this->createRequest('DELETE', 'v1/socials/7');
+        $request = $this->createRequest('DELETE', 'v1/socials/7')
+            ->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
 
         $response = $this->app->handle($request);
 

@@ -28,7 +28,8 @@ class UserListDataTableActionTest extends TestCase
         $this->mock(UserListDataTableRepository::class)
             ->method('getTableData')->willReturn($users);
 
-        $request = $this->createRequest('GET', 'v1/users');
+        $request = $this->createRequest('GET', 'v1/users')
+            ->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
 
         $response = $this->app->handle($request);
 

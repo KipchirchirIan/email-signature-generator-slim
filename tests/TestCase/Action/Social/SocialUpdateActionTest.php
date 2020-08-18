@@ -31,7 +31,8 @@ class SocialUpdateActionTest extends TestCase
                 'profile_link' => 'https://www.test.com/profile/',
                 'social_description' => 'Test Social Network',
             ]
-        );
+        )->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
+
         $response = $this->app->handle($request);
 
         $this->assertJsonData(

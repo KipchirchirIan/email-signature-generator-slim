@@ -22,7 +22,9 @@ class TemplateDeleteActionTest extends TestCase
         $this->mock(TemplateDeleteRepository::class)
             ->method('deleteTemplateById')->willReturn(1);
 
-        $request = $this->createRequest('DELETE', 'v1/templates/2');
+        $request = $this->createRequest('DELETE', 'v1/templates/2')
+            ->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
+
         $response = $this->app->handle($request);
 
         $this->assertJsonData($response, ['result' => true]);

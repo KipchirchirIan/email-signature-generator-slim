@@ -35,7 +35,8 @@ class TemplateCreateActionTest extends TestCase
                 'template_desc' => 'This is template test 1',
                 'template_filename' => 'test1tpl.html'
             ]
-        );
+        )->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
+
 
         $response = $this->app->handle($request);
 

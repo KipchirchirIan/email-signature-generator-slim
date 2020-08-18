@@ -22,7 +22,9 @@ class UserDeleteActionTest extends TestCase
         $this->mock(UserDeleteRepository::class)
             ->method('deleteUserById')->willReturn(1);
 
-        $request = $this->createRequest('DELETE', 'v1/users/7');
+        $request = $this->createRequest('DELETE', 'v1/users/7')
+            ->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
+
 
         $response = $this->app->handle($request);
 

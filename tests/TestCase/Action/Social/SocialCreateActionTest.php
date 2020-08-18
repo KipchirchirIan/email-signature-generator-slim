@@ -17,7 +17,7 @@ class SocialCreateActionTest extends TestCase
 {
     use AppTestTrait;
 
-    public  function testAction(): void
+    public function testAction(): void
     {
         $this->mock(SocialCreatorRepository::class)
             ->method('insertSocial')->willReturn(2);
@@ -31,7 +31,8 @@ class SocialCreateActionTest extends TestCase
                 'profile_link' => 'https://www.test.com/profile/',
                 'social_description' => 'Test Social Network',
             ]
-        );
+        )->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
+
         $response = $this->app->handle($request);
 
         $this->assertJsonData(
