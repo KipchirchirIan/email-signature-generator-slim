@@ -12,6 +12,8 @@ use Slim\Routing\RouteCollectorProxy;
 
 return function(App $app) {
 
+    $app->get('/', \App\Action\Home\HomeAction::class);
+
     $app->post('/v1/tokens', \App\Action\Auth\TokenCreateAction::class);
 
     $app->group('/v1', function (RouteCollectorProxy $group) {

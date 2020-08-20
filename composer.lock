@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45387a9af6a8c90e8550ff02b80de39a",
+    "content-hash": "622ae20a0eb3bc3aeee10b5824ea2e09",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -862,6 +862,51 @@
                 "typed"
             ],
             "time": "2020-01-05T18:48:59+00:00"
+        },
+        {
+            "name": "selective/basepath",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/selective-php/basepath.git",
+                "reference": "c2e9b28acb83999aeb299ba628b964226f71044f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/selective-php/basepath/zipball/c2e9b28acb83999aeb299ba628b964226f71044f",
+                "reference": "c2e9b28acb83999aeb299ba628b964226f71044f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "psr/http-server-middleware": "^1.0"
+            },
+            "require-dev": {
+                "overtrue/phplint": "^1.1",
+                "phpstan/phpstan-shim": "^0.11",
+                "phpunit/phpunit": "^7",
+                "slim/psr7": "^0.6.0",
+                "slim/slim": "^4.3",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Selective\\BasePath\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A URL base path detector for Slim 4",
+            "homepage": "https://github.com/selective-php/basepath",
+            "keywords": [
+                "basepath",
+                "slim",
+                "slim4"
+            ],
+            "time": "2020-04-11T12:57:24+00:00"
         },
         {
             "name": "selective/config",

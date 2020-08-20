@@ -9,6 +9,7 @@
 use App\Auth\JwtAuth;
 use App\Handler\DefaultErrorHandler;
 use Psr\Container\ContainerInterface;
+use Selective\BasePath\BasePathMiddleware;
 use Selective\Validation\Encoder\JsonEncoder;
 use Selective\Validation\Middleware\ValidationExceptionMiddleware;
 use Selective\Validation\Transformer\ErrorDetailsResultTransformer;
@@ -28,6 +29,10 @@ return [
         AppFactory::setContainer($container);
 
         return AppFactory::create();
+    },
+
+    BasePathMiddleware::class => function (ContainerInterface  $container) {
+        return new BasePathMiddleware($container->get(App::class));
     },
 
     // For the responder

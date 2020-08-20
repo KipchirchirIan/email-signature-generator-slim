@@ -13,6 +13,7 @@
     "lcobucci/jwt": "^3.3",
     "php-di/php-di": "^6.1",
     "selective/array-reader": "^0.3.0",
+    "selective/basepath": "^1.0",
     "selective/config": "^0.2.0",
     "selective/validation": "^0.11.0",
     "slim/psr7": "^1.0",

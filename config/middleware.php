@@ -9,6 +9,7 @@
 use App\Middleware\CorsMiddleware;
 use App\Middleware\UrlGeneratorMiddleware;
 use App\Middleware\JwtClaimMiddleware;
+use Selective\BasePath\BasePathMiddleware;
 use Slim\App;
 use Slim\Middleware\ErrorMiddleware;
 
@@ -26,6 +27,7 @@ return function (App $app) {
      * Otherwise exceptions thrown from it will not be handled by the middleware
      */
     $app->addRoutingMiddleware();
+    $app->add(BasePathMiddleware::class);
 
     // Catch errors and exceptions
     $app->add(ErrorMiddleware::class);
