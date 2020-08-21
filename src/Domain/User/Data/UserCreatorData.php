@@ -23,6 +23,11 @@ use Selective\ArrayReader\ArrayReader;
     public $email;
 
      /**
+      * @var string
+      */
+    public $password;
+
+     /**
       * @var string|null
       */
     public $name;
@@ -73,6 +78,7 @@ use Selective\ArrayReader\ArrayReader;
 
         $this->id = $data->findInt('user_id');
         $this->email = $data->findString('email');
+        $this->password = $data->findString('password');
         $this->name = $data->findString('name');
         $this->company = $data->findString('company');
         $this->position = $data->findString('position');

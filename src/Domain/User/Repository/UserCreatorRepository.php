@@ -32,6 +32,7 @@ class UserCreatorRepository
     {
         $row = [
             'email' => $user->email,
+            'password' => $user->password,
             'name' => $user->name,
             'company' => $user->company,
             'position' => $user->position,
@@ -43,18 +44,18 @@ class UserCreatorRepository
             'address' => $user->address
         ];
 
-        $sql = "INSERT INTO tbl_users SET ";
-        $sql .= "email=:email, ";
-        $sql .= "name=:name, ";
-        $sql .= "company=:company, ";
-        $sql .= "position=:position, ";
-        $sql .= "department=:department, ";
-        $sql .= "phone=:phone, ";
-        $sql .= "mobile=:mobile, ";
-        $sql .= "website=:website, ";
-        $sql .= "skype=:skype, ";
-        $sql .= "address=:address;";
-
+        $sql = "INSERT INTO tbl_users 
+                            SET email = :email, 
+                            password = :password,
+                            name = :name, 
+                            company = :company, 
+                            position = :position, 
+                            department = :department, 
+                            phone = :phone, 
+                            mobile = :mobile, 
+                            website = :website, 
+                            skype = :skype, 
+                            address = :address";
 
         $this->connection->prepare($sql)->execute($row);
 
