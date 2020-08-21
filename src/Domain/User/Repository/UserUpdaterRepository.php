@@ -41,7 +41,6 @@ class UserUpdaterRepository
     public function updateUser(UserCreatorData $user, int $uid): bool
     {
         $row = [
-            'email' => $user->email,
             'name' => $user->name,
             'company' => $user->company,
             'position' => $user->position,
@@ -51,21 +50,19 @@ class UserUpdaterRepository
             'website' => $user->website,
             'skype' => $user->skype,
             'address' => $user->address,
-            'user_id' => $uid
+            'userId' => $uid
         ];
 
-        $sql = "UPDATE tbl_users SET ";
-        $sql .= "email=:email, ";
-        $sql .= "name=:name, ";
-        $sql .= "company=:company, ";
-        $sql .= "position=:position, ";
-        $sql .= "department=:department, ";
-        $sql .= "phone=:phone, ";
-        $sql .= "mobile=:mobile, ";
-        $sql .= "website=:website, ";
-        $sql .= "skype=:skype, ";
-        $sql .= "address=:address ";
-        $sql .= "WHERE user_id=:user_id;";
+        $sql = "UPDATE tbl_users SET name = :name, 
+                                company = :company, 
+                                position = :position, 
+                                department = :department, 
+                                phone = :phone, 
+                                mobile = :mobile, 
+                                website = :website, 
+                                skype = :skype, 
+                                address = :address 
+                                WHERE user_id = :userId";
 
         return $this->connection->prepare($sql)->execute($row);
     }
