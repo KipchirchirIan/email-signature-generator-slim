@@ -6,7 +6,7 @@
  * Time: 4:31 AM
  */
 
-namespace App\Test;
+namespace App\Test\TestCase;
 
 use DI\Container;
 use InvalidArgumentException;
@@ -14,18 +14,34 @@ use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\App;
 use Slim\Psr7\Factory\ServerRequestFactory;
 use UnexpectedValueException;
 
 trait AppTestTrait
 {
+    /**
+     * @var Container
+     */
     protected $container;
 
+    /**
+     * @var App
+     */
     protected $app;
 
-    protected function setUp(): void
+    /**
+     * Bootstrap app
+     *
+     * @before
+     *
+     * @throws UnexpectedValueException
+     *
+     * @return void
+     */
+    protected function setupContainer(): void
     {
-        $this->app = require __DIR__ . '/../config/bootstrap.php';
+        $this->app = require __DIR__ . '/../../config/bootstrap.php';
 
         $container = $this->app->getContainer();
         if ($container === null) {
