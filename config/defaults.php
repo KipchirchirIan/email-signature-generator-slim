@@ -38,13 +38,35 @@ $settings['error'] = [
     'logErrors' => false,
 ];
 
+$settings['phinx'] = [
+    'paths' => [
+        'migrations' => $settings['root'] . '/resources/migrations',
+        'seeds' => $settings['root'] . '/resources/seeds'
+    ],
+    'environments' => [
+        'default_migration_table' => 'phinxlog',
+        'default_environment' => 'development',
+        'production' => [
+            'adapter' => 'mysql',
+            'host' => 'localhost',
+            'name' => 'email_signature_generator',
+            'user' => 'root',
+            'pass' => '',
+            'port' => '3306',
+            'charset' => 'utf8',
+        ],
+        'development' => [],
+        'testing' => []
+    ],
+    'version_order' => 'creation'
+];
+
 $settings['db'] = [
     'driver' => 'mysql',
     'host' => 'localhost',
     'port' => '3306',
-    'database' => 'emailsignaturegen_test',
     'charset' => 'utf8mb4',
-    'collation' => 'utf8mb4_unicode_ci',
+    'collation' => 'utf8mb4_general_ci',
     'flags' => [
         // Turn off persistent connections
         PDO::ATTR_PERSISTENT => false,
@@ -55,7 +77,7 @@ $settings['db'] = [
         // Set default fetch mode to array
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         // Set character set
-        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
+        PDO::MYSQL_ATTR_INIT_COMMAND=> 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci'
     ]
 ];
 
@@ -65,17 +87,6 @@ $settings['jwt'] = [
 
     // Max lifetime in seconds
     'lifetime' => 14400,
-
-    // The public key
-    'public_key' => '-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoyKL5ETz3XdGfMwG2VJ1
-k7+nrOXw9ncVWmsya2B4Rb307jFKNq6GhWavbA1ZWsoIcvpUbXAYuPnTBgHAsiI3
-mLwuuMKB9taugq1Dpx95a+XUTZk5gne0AtJqMa6TH5zeRoaLNo5ytjXn7H50ri8r
-wpuK1UHvePiKsBEMWX7/6EE8bMhYRCFh/Uw0odSnVKGWFLDpHyoAs2PtQJ4CmWqe
-NR8sGJEXHO3rqP5143j5Y/VURYIYDbI0LcrJsdclB17PExjilWiK2iIP+RwW5/MV
-u6o5gHLvvUDC7qmMEx4PveEp9V504/JPef07JG6zsXiWxqMGwRrJeomE94jUnv7g
-HQIDAQAB
------END PUBLIC KEY-----',
 ];
 
 return $settings;

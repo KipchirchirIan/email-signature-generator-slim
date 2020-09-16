@@ -12,6 +12,7 @@
     "cakephp/chronos": "^2.0",
     "lcobucci/jwt": "^3.3",
     "php-di/php-di": "^6.1",
+    "robmorgan/phinx": "^0.12.4",
     "selective/array-reader": "^0.3.0",
     "selective/basepath": "^1.0",
     "selective/config": "^0.2.0",
