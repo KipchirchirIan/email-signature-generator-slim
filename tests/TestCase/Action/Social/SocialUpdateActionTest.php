@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\Social;
 
 
 use App\Domain\Social\Repository\SocialUpdaterRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class SocialUpdateActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     public function testAction(): void
     {

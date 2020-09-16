@@ -42,12 +42,9 @@ final class UserViewer
         // Fetch data from the database
         $userRow = $this->repository->getUserById($userId);
 
-        // Add or invoke your complex business logic here
-//        $user = new UserViewData();
-//        $user->id = (int)$userRow['user_id'];
-//        $user->email = (string)$userRow['email'];
-//        $user->name = (string)$userRow['name'];
+        $user = new UserViewData($userRow);
+//        $user->id = $userId;
 
-        return $userRow;
+        return $user;
     }
 }

@@ -75,7 +75,7 @@ class UserViewData
     {
         $data = new ArrayReader($array);
 
-        $this->id = $data->findInt('id');
+        $this->id = $data->findInt('user_id');
         $this->email = $data->findString('email');
         $this->name = $data->findString('name');
     }

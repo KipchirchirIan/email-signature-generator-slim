@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\User;
 
 
 use App\Domain\User\Repository\UserUpdaterRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserUpdateActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     public function testAction(): void
     {
@@ -24,7 +24,7 @@ class UserUpdateActionTest extends TestCase
 
         $request = $this->createJsonRequest(
             'PUT',
-            'v1/users/7',
+            'v1/users/2',
             [
                 'name' => 'Jane Doe',
                 'company' => 'Jane Doe LLC',

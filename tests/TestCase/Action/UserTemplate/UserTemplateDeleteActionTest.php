@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\UserTemplate;
 
 
 use App\Domain\UserTemplate\Repository\UserTemplateDeleteRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserTemplateDeleteActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     public function testAction(): void
     {

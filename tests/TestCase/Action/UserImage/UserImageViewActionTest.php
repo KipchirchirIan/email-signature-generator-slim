@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\UserImage;
 
 
 use App\Domain\UserImage\Repository\UserImageViewerRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserImageViewActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     /**
      * @dataProvider provideUserImageViewAction

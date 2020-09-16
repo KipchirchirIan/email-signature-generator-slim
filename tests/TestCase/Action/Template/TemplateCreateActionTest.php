@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\Template;
 
 
 use App\Domain\Template\Repository\TemplateCreatorRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class TemplateCreateActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     /**
      * @dataProvider provideTemplateCreateAction

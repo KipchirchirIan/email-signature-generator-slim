@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\Social;
 
 
 use App\Domain\Social\Repository\SocialDeleteRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class SocialDeleteActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     public function testAction(): void
     {

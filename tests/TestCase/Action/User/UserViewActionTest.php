@@ -11,12 +11,12 @@ namespace App\Test\TestCase\Action;
 
 use App\Domain\User\Data\UserViewData;
 use App\Domain\User\Repository\UserViewerRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserViewActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     /**
      * @dataProvider provideUserReaderAction

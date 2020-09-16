@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\UserTemplate;
 
 
 use App\Domain\UserTemplate\Repository\UserTemplateCreatorRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserTemplateCreateActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     public function testAction(): void
     {

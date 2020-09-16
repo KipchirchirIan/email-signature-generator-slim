@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\UserImage;
 
 
 use App\Domain\UserImage\Repository\UserImageUpdaterRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserImageUpdateActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     public function testAction(): void
     {

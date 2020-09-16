@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\UserSocial;
 
 
 use App\Domain\UserSocial\Repository\UserSocialViewerRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserSocialListActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     /**
      * @dataProvider provideUserSocialViewAction

@@ -37,7 +37,7 @@ class UserViewerRepository
      *
      * @return UserViewData The user row
      */
-    public function getUserById(int $userId): UserViewData
+    public function getUserById(int $userId): array
     {
         $params = [
             'userId' => $userId
@@ -53,10 +53,7 @@ class UserViewerRepository
             throw new DomainException(sprintf('User not found: %d', $userId));
         }
 
-        $user = new UserViewData($row);
-        $user->id = $userId;
-
-        return $user;
+        return $row;
     }
 
     /**

@@ -10,19 +10,19 @@ namespace App\Test\TestCase\Action\User;
 
 
 use App\Domain\User\Repository\UserDeleteRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserDeleteActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     public function testAction(): void
     {
         $this->mock(UserDeleteRepository::class)
             ->method('deleteUserById')->willReturn(1);
 
-        $request = $this->createRequest('DELETE', 'v1/users/7')
+        $request = $this->createRequest('DELETE', 'v1/users/2')
             ->withHeader('Authorization', 'Bearer ' . $this->container->get('settings')['token']);
 
 

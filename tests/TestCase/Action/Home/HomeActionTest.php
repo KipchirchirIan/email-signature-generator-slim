@@ -10,7 +10,7 @@ namespace App\Test\TestCase\Action\Home;
 
 
 use App\Action\Home\HomeAction;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\AppTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class HomeActionTest extends TestCase

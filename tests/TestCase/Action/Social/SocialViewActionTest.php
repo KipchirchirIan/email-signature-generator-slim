@@ -11,12 +11,13 @@ namespace App\Test\TestCase\Action\Social;
 
 use App\Domain\Social\Data\SocialViewData;
 use App\Domain\Social\Repository\SocialViewerRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class SocialViewActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     /**
      * @dataProvider provideSocialViewAction

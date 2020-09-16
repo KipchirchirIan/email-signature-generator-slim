@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\UserImage;
 
 
 use App\Domain\UserImage\Repository\UserImageCreatorRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserImageCreateActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     public function testWithValidUser(): void
     {

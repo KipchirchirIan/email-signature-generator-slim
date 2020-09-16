@@ -10,12 +10,12 @@ namespace App\Test\TestCase\Action\User;
 
 
 use App\Domain\User\Repository\UserListDataTableRepository;
-use App\Test\AppTestTrait;
+use App\Test\TestCase\DatabaseTestTrait;
 use PHPUnit\Framework\TestCase;
 
 class UserListDataTableActionTest extends TestCase
 {
-    use AppTestTrait;
+    use DatabaseTestTrait;
 
     /**
      * @dataProvider provideUserListDataTableAction
