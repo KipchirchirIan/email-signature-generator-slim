@@ -40,7 +40,7 @@ final class UserImageCreator
     public function createUserImage(int $userId, UserImageCreatorData $userImage): int
     {
         // Validation
-        if (empty($userImage->userId) || !is_int($userImage->userId)) {
+        if (empty($userId) || !is_int($userId)) {
             throw new InvalidArgumentException('User ID is required or must be an integer');
         }
 
