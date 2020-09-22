@@ -52,6 +52,8 @@ class UserSocialViewerRepository
             throw new DomainException('User\'s social accounts not found');
         }
 
+        $userSocialData = [];
+
         foreach ($rows as $row) {
             $userSocialData[] = new UserSocialCreatorData($row);
         }
