@@ -7,6 +7,7 @@
  */
 
 use App\Middleware\CorsMiddleware;
+use App\Middleware\HttpsMiddleware;
 use App\Middleware\UrlGeneratorMiddleware;
 use App\Middleware\JwtClaimMiddleware;
 use Selective\BasePath\BasePathMiddleware;
@@ -22,6 +23,9 @@ return function (App $app) {
     $app->add(CorsMiddleware::class);
     // Authentication middleware
     $app->add(JwtClaimMiddleware::class);
+
+    // Redirect HTTP traffic to HTTPS
+    $app->add(HttpsMiddleware::class);
     /**
      * The routing middleware should be added earlier than the ErrorMiddleware
      * Otherwise exceptions thrown from it will not be handled by the middleware
