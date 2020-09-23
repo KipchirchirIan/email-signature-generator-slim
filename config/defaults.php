@@ -38,6 +38,16 @@ $settings['error'] = [
     'logErrors' => false,
 ];
 
+// Logger settings
+$settings['logger'] = [
+    'name' => $settings['app_name'],
+    'path' => $settings['root'] . '/logs',
+    'filename' => 'app_api.log',
+    'level' => \Monolog\Logger::DEBUG,
+    'file_permission' => 0775,
+];
+
+// Phinx Configurations
 $settings['phinx'] = [
     'paths' => [
         'migrations' => $settings['root'] . '/resources/migrations',

@@ -7,6 +7,7 @@
  */
 
 use App\Auth\JwtAuth;
+use App\Factory\LoggerFactory;
 use App\Handler\DefaultErrorHandler;
 use Psr\Container\ContainerInterface;
 use Selective\BasePath\BasePathMiddleware;
@@ -60,12 +61,17 @@ return [
         $app = $container->get(App::class);
         $config = $container->get('settings')['error'];
 
+        $logger = $container->get(LoggerFactory::class)
+            ->addFileHandler('error.log')
+            ->createInstance('default_error_handler');
+
         $errorMiddleWare = new ErrorMiddleware(
             $app->getCallableResolver(),
             $app->getResponseFactory(),
             (bool)$config['displayErrorDetails'],
             (bool)$config['logErrors'],
-            (bool)$config['logErrorDetails']
+            (bool)$config['logErrorDetails'],
+            $logger
         );
 
         $errorMiddleWare->setDefaultErrorHandler($container->get(DefaultErrorHandler::class));
@@ -96,6 +102,10 @@ return [
             new ErrorDetailsResultTransformer(),
             new JsonEncoder()
         );
-    }
+    },
+
+    LoggerFactory::class => function(ContainerInterface $container) {
+        return new LoggerFactory($container->get('settings')['logger']);
+    },
 
 ];
