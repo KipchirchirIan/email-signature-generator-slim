@@ -25,7 +25,7 @@ return function (App $app) {
     $app->add(JwtClaimMiddleware::class);
 
     // Redirect HTTP traffic to HTTPS
-    $app->add(HttpsMiddleware::class);
+//    $app->add(HttpsMiddleware::class);
     /**
      * The routing middleware should be added earlier than the ErrorMiddleware
      * Otherwise exceptions thrown from it will not be handled by the middleware
