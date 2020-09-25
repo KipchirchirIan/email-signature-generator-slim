@@ -59,15 +59,6 @@ CREATE TABLE `tbl_superusers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_superusers`
---
-
-INSERT INTO `tbl_superusers` (`suid`, `first_name`, `last_name`, `nickname`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', 'test', 'test@cmshosting.xyz', '$2y$10$.oQ9sjS/8wiRe7TqJ4OC7eJWzxQg61TkT/nQ1Q/vR0CsWH3QPOXuO', '2020-08-10 06:33:06', '2020-08-10 06:33:06');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tbl_templates`
 --
 
