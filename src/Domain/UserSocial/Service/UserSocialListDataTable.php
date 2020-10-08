@@ -10,7 +10,10 @@ namespace App\Domain\UserSocial\Service;
 
 
 use App\Domain\UserSocial\Repository\UserSocialViewerRepository;
+use App\Factory\LoggerFactory;
+use Exception;
 use http\Exception\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 final class UserSocialListDataTable
 {
@@ -20,13 +23,21 @@ final class UserSocialListDataTable
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * UserSocialListDataTable constructor.
      *
      * @param UserSocialViewerRepository $repository The repository
+     * @param LoggerFactory $logger;
      */
-    public function __construct(UserSocialViewerRepository $repository)
+    public function __construct(UserSocialViewerRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('usersocial_lister.log')
+            ->createInstance('usersocial_lister');
     }
 
     /**
@@ -38,11 +49,19 @@ final class UserSocialListDataTable
      */
     public function listAllUserSocials(int $userId): array
     {
-        // Input validation
-        if (empty($userId) || $userId < 1) {
-            throw new InvalidArgumentException('User ID is required or must be a positive integer');
-        }
+        try {
+            // Input validation
+            if (empty($userId) || $userId < 1) {
+                throw new InvalidArgumentException('User ID is required or must be a positive integer');
+            }
 
-        return $this->repository->findAllUserSocialsById($userId);
+            $userSocialsList = $this->repository->findAllUserSocialsById($userId);
+            $this->logger->info(sprintf('Listing all social media accounts for user with id %s: %s', $userId, count($userSocialsList)));
+
+            return $userSocialsList;
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+            throw $exception;
+        }
     }
 }

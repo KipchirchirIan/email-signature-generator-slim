@@ -11,25 +11,47 @@ namespace App\Domain\Social\Service;
 
 use App\Domain\Social\Data\SocialCreatorData;
 use App\Domain\Social\Repository\SocialCreatorRepository;
+use App\Factory\LoggerFactory;
+use Exception;
+use Psr\Log\LoggerInterface;
 
 final class SocialCreator
 {
     private $repository;
 
-    public function __construct(SocialCreatorRepository $repository)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * SocialCreator constructor.
+     *
+     * @param SocialCreatorRepository $repository The repository
+     * @param LoggerFactory $logger The logger
+     */
+    public function __construct(SocialCreatorRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('social_creator.log')
+            ->createInstance('social_creator');
     }
 
     public function createSocial(SocialCreatorData $socialData): int
     {
-        // TODO: Validation
+        try {
+            // TODO: Validation
 
-        // Insert social
-        $socialId = $this->repository->insertSocial($socialData);
+            // Insert social
+            $socialId = $this->repository->insertSocial($socialData);
 
-        // TODO: Logging
+            // Log data
+            $this->logger->info(sprintf('Social media account created successfully: %s', $socialId));
 
-        return $socialId;
+            return $socialId;
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+            throw $exception;
+        }
     }
 }

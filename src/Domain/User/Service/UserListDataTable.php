@@ -9,6 +9,8 @@
 namespace App\Domain\User\Service;
 
 use App\Domain\User\Repository\UserListDataTableRepository;
+use App\Factory\LoggerFactory;
+use Psr\Log\LoggerInterface;
 
 final class UserListDataTable
 {
@@ -18,13 +20,20 @@ final class UserListDataTable
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * UserListDataTable constructor.
      *
      * @param UserListDataTableRepository $repository The repository
      */
-    public function __construct(UserListDataTableRepository $repository)
+    public function __construct(UserListDataTableRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('user_lister.log')
+            ->createInstance('user_lister');
     }
 
     /**
@@ -32,6 +41,10 @@ final class UserListDataTable
      */
     public function listAllUsers(): array
     {
-        return $this->repository->getTableData();
+        $userList = $this->repository->getTableData();
+
+        $this->logger->info(sprintf('Listing all records of users: %s', count($userList)));
+
+        return $userList;
     }
 }

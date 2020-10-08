@@ -11,8 +11,11 @@ namespace App\Domain\UserImage\Service;
 
 use App\Domain\UserImage\Data\UserImageCreatorData;
 use App\Domain\UserImage\Repository\UserImageCreatorRepository;
+use App\Factory\LoggerFactory;
+use Exception;
 use http\Exception\InvalidArgumentException;
 use DomainException;
+use Psr\Log\LoggerInterface;
 
 final class UserImageCreator
 {
@@ -22,13 +25,20 @@ final class UserImageCreator
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * UserImageCreator constructor.
      *
      * @param UserImageCreatorRepository $repository The repository
      */
-    public function __construct(UserImageCreatorRepository $repository)
+    public function __construct(UserImageCreatorRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('userimage_creator.log')
+            ->createInstance('userimage_creator');
     }
 
     /**
@@ -39,21 +49,28 @@ final class UserImageCreator
      */
     public function createUserImage(int $userId, UserImageCreatorData $userImage): int
     {
-        // Validation
-        if (empty($userId) || !is_int($userId)) {
-            throw new InvalidArgumentException('User ID is required or must be an integer');
-        }
+        try {
+            // Validation
+            if (empty($userId) || !is_int($userId)) {
+                throw new InvalidArgumentException('User ID is required or must be an integer');
+            }
 
-        // Check if user exists
+            //Todo: Check if user exists??
 //        if (!$this->repository->userExists($userId)) {
 //            throw new DomainException(sprintf('User not found: %d', $userId));
 //        }
 
-        // Insert data
-        $userImageId = $this->repository->insertUserImage($userId, $userImage);
+            // Todo: Check if user has an entry in the database already and just do an update
+            // Insert data
+            $userImageId = $this->repository->insertUserImage($userId, $userImage);
 
-        // Logging done here: User images created successfully
+            // Log data
+            $this->logger->info(sprintf('User image created successfully: %s', $userImageId));
 
-        return $userImageId;
+            return $userImageId;
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+            throw $exception;
+        }
     }
 }

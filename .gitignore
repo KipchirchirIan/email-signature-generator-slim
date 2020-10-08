@@ -3,3 +3,7 @@
 /config/env.php
 /build
 /.phpunit.result.cache
+
+!logs/
+logs/*
+!logs/.htaccess

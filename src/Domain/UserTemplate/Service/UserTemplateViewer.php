@@ -10,6 +10,8 @@ namespace App\Domain\UserTemplate\Service;
 
 
 use App\Domain\UserTemplate\Repository\UserTemplateViewerRepository;
+use App\Factory\LoggerFactory;
+use Psr\Log\LoggerInterface;
 
 final class UserTemplateViewer
 {
@@ -19,13 +21,21 @@ final class UserTemplateViewer
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * UserTemplateViewer constructor.
      *
      * @param UserTemplateViewerRepository $repository The repository
+     * @param LoggerFactory $logger The logger
      */
-    public function __construct(UserTemplateViewerRepository $repository)
+    public function __construct(UserTemplateViewerRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('usertemplate_viewer.log')
+            ->createInstance('usertemplate_viewer');
     }
 
     /**
@@ -35,6 +45,9 @@ final class UserTemplateViewer
      */
     public function getUserTemplateData(int $userId): array
     {
-        return $this->repository->findAllUserTemplateByUserId($userId);
+        $savedTemplates = $this->repository->findAllUserTemplateByUserId($userId);
+        $this->logger->info(sprintf('Listing templates of user with id %s: %s', $userId, count($savedTemplates)));
+
+        return $savedTemplates;
     }
 }

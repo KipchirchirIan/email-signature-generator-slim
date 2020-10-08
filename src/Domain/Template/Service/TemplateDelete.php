@@ -10,6 +10,9 @@ namespace App\Domain\Template\Service;
 
 
 use App\Domain\Template\Repository\TemplateDeleteRepository;
+use App\Factory\LoggerFactory;
+use Exception;
+use Psr\Log\LoggerInterface;
 
 final class TemplateDelete
 {
@@ -19,13 +22,20 @@ final class TemplateDelete
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * TemplateDelete constructor.
      *
      * @param TemplateDeleteRepository $repository The repository
      */
-    public function __construct(TemplateDeleteRepository $repository)
+    public function __construct(TemplateDeleteRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('template_delete.log')
+            ->createInstance('template_delete');
     }
 
     /**
@@ -35,6 +45,14 @@ final class TemplateDelete
      */
     public function deleteTemplateData(int $templateId)
     {
-        return (bool)$this->repository->deleteTemplateById($templateId);
+        try {
+            $result = (bool)$this->repository->deleteTemplateById($templateId);
+            $this->logger->info(sprintf('Template deleted successfully: %s', $templateId));
+
+            return $result;
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+            throw $exception;
+        }
     }
 }

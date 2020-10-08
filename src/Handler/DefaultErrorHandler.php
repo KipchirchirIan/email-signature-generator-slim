@@ -8,6 +8,7 @@
 
 namespace App\Handler;
 
+use App\Factory\LoggerFactory;
 use App\Responder\Responder;
 use App\Utility\ExceptionDetail;
 use DomainException;
@@ -15,6 +16,7 @@ use http\Exception\InvalidArgumentException;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 use Selective\Validation\Exception\ValidationException;
 use Slim\Exception\HttpException;
 use Throwable;
@@ -33,13 +35,25 @@ class DefaultErrorHandler
     private $responder;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * The constructor.
      *
      * @param ResponseFactoryInterface $responseFactory The response factory
+     * @param LoggerFactory $logger The logger
      */
-    public function __construct(ResponseFactoryInterface $responseFactory, Responder $responder) {
+    public function __construct(
+        ResponseFactoryInterface $responseFactory,
+        Responder $responder,
+        LoggerFactory $logger
+    ) {
         $this->responseFactory = $responseFactory;
         $this->responder = $responder;
+        $this->logger = $logger->addFileHandler('error.log')
+            ->createInstance('error');
     }
 
     /**

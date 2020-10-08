@@ -11,7 +11,10 @@ namespace App\Domain\Template\Service;
 
 use App\Domain\Template\Data\TemplateCreatorData;
 use App\Domain\Template\Repository\TemplateCreatorRepository;
+use App\Factory\LoggerFactory;
+use Exception;
 use http\Exception\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class TemplateCreator
@@ -25,13 +28,20 @@ final class TemplateCreator
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * TemplateCreator constructor.
      *
      * @param TemplateCreatorRepository $repository The repository
      */
-    public function __construct(TemplateCreatorRepository $repository)
+    public function __construct(TemplateCreatorRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('template_creator.log')
+            ->createInstance('template_creator');
     }
 
     /**
@@ -41,16 +51,23 @@ final class TemplateCreator
      */
     public function createTemplate(TemplateCreatorData $template): int
     {
-        // Validation
-        if (empty($template->filename)) {
-            throw new InvalidArgumentException('File name required');
+        try {
+            // Validation
+            if (empty($template->filename)) {
+                throw new InvalidArgumentException('File name required');
+            }
+
+            // Insert new template
+            $templateId = $this->repository->insertTemplate($template);
+
+            // Log data
+            $this->logger->info(sprintf('Template created successfully: %s', $templateId));
+
+            return $templateId;
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+
+            throw $exception;
         }
-
-        // Insert new template
-        $templateId = $this->repository->insertTemplate($template);
-
-        // Logging done here: Template created successfully
-
-        return $templateId;
     }
 }

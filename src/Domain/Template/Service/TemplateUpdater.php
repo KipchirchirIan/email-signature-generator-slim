@@ -11,7 +11,10 @@ namespace App\Domain\Template\Service;
 
 use App\Domain\Template\Data\TemplateCreatorData;
 use App\Domain\Template\Repository\TemplateUpdaterRepository;
+use App\Factory\LoggerFactory;
+use Exception;
 use http\Exception\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 final class TemplateUpdater
 {
@@ -21,13 +24,21 @@ final class TemplateUpdater
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * TemplateUpdater constructor.
      *
      * @param TemplateUpdaterRepository $repository The repository
+     * @param LoggerFactory $logger The logger
      */
-    public function __construct(TemplateUpdaterRepository $repository)
+    public function __construct(TemplateUpdaterRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('template_updater.log')
+            ->createInstance('template_update');
     }
 
     /**
@@ -38,11 +49,18 @@ final class TemplateUpdater
      */
     public function editTemplate(TemplateCreatorData $template, int $templateId): bool
     {
-        if (empty($templateId) || !is_int($templateId)) {
-            throw new InvalidArgumentException('Template ID is required or must be an integer');
-        }
+        try {
+            if (empty($templateId) || !is_int($templateId)) {
+                throw new InvalidArgumentException('Template ID is required or must be an integer');
+            }
+            // Update template
+            $result = $this->repository->updateTemplateById($template, $templateId);
+            $this->logger->info(sprintf('User updated successfully: %s', $templateId));
 
-        // Update template
-        return $this->repository->updateTemplateById($template, $templateId);
+            return $result;
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+            throw $exception;
+        }
     }
 }

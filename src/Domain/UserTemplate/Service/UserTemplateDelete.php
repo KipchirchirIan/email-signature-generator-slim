@@ -10,6 +10,8 @@ namespace App\Domain\UserTemplate\Service;
 
 
 use App\Domain\UserTemplate\Repository\UserTemplateDeleteRepository;
+use App\Factory\LoggerFactory;
+use Psr\Log\LoggerInterface;
 
 final class UserTemplateDelete
 {
@@ -19,13 +21,20 @@ final class UserTemplateDelete
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * UserTemplateDelete constructor.
      *
      * @param UserTemplateDeleteRepository $repository The repository
      */
-    public function __construct(UserTemplateDeleteRepository $repository)
+    public function __construct(UserTemplateDeleteRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('usertemplate_delete.log')
+            ->createInstance('usertemplate_delete');
     }
 
     /**
@@ -37,7 +46,15 @@ final class UserTemplateDelete
      */
     public function deleteUserTemplateData(int $userId, int $userTemplateId): bool
     {
-        return $this->repository->deleteUserTemplate($userId, $userTemplateId);
+        $result = $this->repository->deleteUserTemplate($userId, $userTemplateId);
+        $this->logger->info(
+            sprintf(
+                'User template with id %s has been removed from user with id %s saved list of templates: %s',
+                $userTemplateId, $userId, $result
+            )
+        );
+
+        return $result;
     }
 
     /**
@@ -48,6 +65,14 @@ final class UserTemplateDelete
      */
     public function deleteAllUserTemplateData(int $userId): bool
     {
-        return $this->repository->deleteAllUserTemplatesByUserId($userId);
+        $result = $this->repository->deleteAllUserTemplatesByUserId($userId);
+        $this->logger->info(
+            sprintf(
+                'All templates for user with id %s have been deleted: %s',
+                $userId, $result
+            )
+        );
+
+        return $result;
     }
 }

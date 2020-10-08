@@ -10,6 +10,9 @@ namespace App\Domain\User\Service;
 
 
 use App\Domain\User\Repository\UserDeleteRepository;
+use App\Factory\LoggerFactory;
+use Exception;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class UserDelete
@@ -23,13 +26,20 @@ final class UserDelete
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * UserDelete constructor.
      *
      * @param UserDeleteRepository $repository The repository
      */
-    public function __construct(UserDeleteRepository $repository)
+    public function __construct(UserDeleteRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('user_delete.log')
+            ->createInstance('user_delete');
     }
 
     /**
@@ -39,6 +49,17 @@ final class UserDelete
      */
     public function deleteUserData(int $userId): bool
     {
-        return (bool)$this->repository->deleteUserById($userId);
+        try {
+            $result = (bool)$this->repository->deleteUserById($userId);
+            // Log success
+            $this->logger->info(sprintf('User removed successfully: %s', $userId));
+
+            return $result;
+        } catch (Exception $exception) {
+            // Log error message
+            $this->logger->error($exception->getMessage());
+
+            throw $exception;
+        }
     }
 }

@@ -11,7 +11,10 @@ namespace App\Domain\Social\Service;
 
 use App\Domain\Social\Data\SocialCreatorData;
 use App\Domain\Social\Repository\SocialUpdaterRepository;
+use App\Factory\LoggerFactory;
+use Exception;
 use http\Exception\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 final class SocialUpdater
 {
@@ -21,13 +24,21 @@ final class SocialUpdater
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * SocialUpdater constructor.
      *
      * @param SocialUpdaterRepository $repository The repository
+     * @param LoggerFactory $logger The logger
      */
-    public function __construct(SocialUpdaterRepository $repository)
+    public function __construct(SocialUpdaterRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('social_updater.log')
+            ->createInstance('social_updater');
     }
 
     /**
@@ -41,11 +52,19 @@ final class SocialUpdater
      */
     public function editSocial(SocialCreatorData $socialData, int $socialId): bool
     {
-        // Input validation
-        if (empty($socialId) || $socialId < 1) {
-            throw new InvalidArgumentException('Social ID is required or must be a positive integer');
-        }
+        try {
+            // Input validation
+            if (empty($socialId) || $socialId < 1) {
+                throw new InvalidArgumentException('Social ID is required or must be a positive integer');
+            }
 
-        return $this->repository->updateSocialById($socialData, $socialId);
+            $result = $this->repository->updateSocialById($socialData, $socialId);
+            $this->logger->info(sprintf('Social media account updated successfully: %s', $socialId));
+
+            return $result;
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+            throw $exception;
+        }
     }
 }

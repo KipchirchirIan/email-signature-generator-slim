@@ -10,6 +10,8 @@ namespace App\Domain\Social\Service;
 
 
 use App\Domain\Social\Repository\SocialViewerRepository;
+use App\Factory\LoggerFactory;
+use Psr\Log\LoggerInterface;
 
 final class SocialListDataTable
 {
@@ -19,13 +21,21 @@ final class SocialListDataTable
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * SocialListDataTable constructor.
      *
      * @param SocialViewerRepository $repository The repository
+     * @param LoggerFactory $logger
      */
-    public function __construct(SocialViewerRepository $repository)
+    public function __construct(SocialViewerRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('social_lister.log')
+            ->createInstance('social_lister');
     }
 
     /**
@@ -35,6 +45,9 @@ final class SocialListDataTable
      */
     public function listAllSocials(): array
     {
-        return $this->repository->findAllSocials();
+        $socialsList = $this->repository->findAllSocials();
+
+        $this->logger->info(sprintf('Listing all records of social media accounts: %s', count($socialsList)));
+        return $socialsList;
     }
 }

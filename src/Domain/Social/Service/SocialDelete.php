@@ -10,7 +10,9 @@ namespace App\Domain\Social\Service;
 
 
 use App\Domain\Social\Repository\SocialDeleteRepository;
+use App\Factory\LoggerFactory;
 use http\Exception\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 final class SocialDelete
 {
@@ -20,13 +22,21 @@ final class SocialDelete
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * SocialDelete constructor.
      *
      * @param SocialDeleteRepository $repository The repository
+     * @param LoggerFactory $logger The logger
      */
-    public function __construct(SocialDeleteRepository $repository)
+    public function __construct(SocialDeleteRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('social_delete.log')
+            ->createInstance('social_delete');
     }
 
     /**
@@ -44,6 +54,9 @@ final class SocialDelete
             throw new InvalidArgumentException('Social ID is required or must be a positive integer');
         }
 
-        return $this->repository->deleteSocialById($socialId);
+        $result = $this->repository->deleteSocialById($socialId);
+        $this->logger->info(sprintf('Social media account deleted successfully: %s', $socialId));
+
+        return $result;
     }
 }

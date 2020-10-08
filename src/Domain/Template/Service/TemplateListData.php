@@ -10,6 +10,8 @@ namespace App\Domain\Template\Service;
 
 
 use App\Domain\Template\Repository\TemplateViewerRepository;
+use App\Factory\LoggerFactory;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class TemplateListData
@@ -23,13 +25,21 @@ final class TemplateListData
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * TemplateListData constructor.
      *
      * @param TemplateViewerRepository $repository The repository
+     * @param LoggerFactory $logger The logger
      */
-    public function __construct(TemplateViewerRepository $repository)
+    public function __construct(TemplateViewerRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('template_lister.log')
+            ->createInstance('template_lister');
     }
 
     /**
@@ -37,6 +47,9 @@ final class TemplateListData
      */
     public function listAllTemplates(): array
     {
-        return $this->repository->findAllTemplates();
+        $templateList = $this->repository->findAllTemplates();
+        $this->logger->info(sprintf('Listing all records of templates: %s', count($templateList)));
+
+        return $templateList;
     }
 }

@@ -11,7 +11,10 @@ namespace App\Domain\UserSocial\Service;
 
 use App\Domain\UserSocial\Data\UserSocialUpdaterData;
 use App\Domain\UserSocial\Repository\UserSocialUpdaterRepository;
+use App\Factory\LoggerFactory;
+use Exception;
 use http\Exception\InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 final class UserSocialUpdater
 {
@@ -21,13 +24,21 @@ final class UserSocialUpdater
     private $repository;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * UserSocialUpdater constructor.
      *
      * @param UserSocialUpdaterRepository $repository The repository
+     *
      */
-    public function __construct(UserSocialUpdaterRepository $repository)
+    public function __construct(UserSocialUpdaterRepository $repository, LoggerFactory $logger)
     {
         $this->repository = $repository;
+        $this->logger = $logger->addFileHandler('usersocial_updater.log')
+            ->createInstance('usersocial_updater');
     }
 
     /**
@@ -41,15 +52,27 @@ final class UserSocialUpdater
      */
     public function editUserSocial(UserSocialUpdaterData $userSocial, int $userId): bool
     {
-        //TODO: Input validation
-        if (empty($userId) || $userId < 1) {
-            throw new InvalidArgumentException('User ID is required or must be a positive integer');
-        }
+        try {
+            //TODO: Input validation
+            if (empty($userId) || $userId < 1) {
+                throw new InvalidArgumentException('User ID is required or must be a positive integer');
+            }
 
-        if (empty($userSocial->profileUsername)) {
-            throw new InvalidArgumentException('Profile username is required');
-        }
+            if (empty($userSocial->profileUsername)) {
+                throw new InvalidArgumentException('Profile username is required');
+            }
 
-        return $this->repository->updateUserSocials($userSocial, $userId);
+            $result = $this->repository->updateUserSocials($userSocial, $userId);
+            $this->logger->info(
+                sprintf(
+                    'User social with id %s for user with id %s was updated successfully: %s',
+                    $userSocial->socialId, $userId, $result
+                ));
+
+            return $result;
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+            throw $exception;
+        }
     }
 }
