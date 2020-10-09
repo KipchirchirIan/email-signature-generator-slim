@@ -22,15 +22,25 @@ return function(App $app) {
 
         $group->get('/', \App\Action\Home\HomeAction::class);
 
+        $group->options('/users', \App\Action\PreFlightAction::class);
+
         $group->post('/users', \App\Action\User\UserCreateAction::class);
+
+        $group->options('/users/{id}', \App\Action\PreFlightAction::class);
 
         $group->get('/users/{id}', \App\Action\User\UserViewAction::class);
 
         $group->put('/users/{id}', \App\Action\User\UserUpdateAction::class);
 
+        $group->options('/templates', \App\Action\PreFlightAction::class);
+
+        $group->options('/templates/{id}', \App\Action\PreFlightAction::class);
+
         $group->get('/templates/{id}', \App\Action\Template\TemplateViewAction::class);
 
         $group->get('/templates', \App\Action\Template\TemplateListAction::class);
+
+        $group->options('/users/{id}/templates', \App\Action\PreFlightAction::class);
 
         $group->post('/users/{id}/templates', \App\Action\UserTemplate\UserTemplateCreateAction::class);
 
@@ -38,15 +48,23 @@ return function(App $app) {
 
         $group->delete('/users/{id}/templates', \App\Action\UserTemplate\UserTemplateDeleteAction::class);
 
+        $group->options('/users/{id}/images', \App\Action\PreFlightAction::class);
+
         $group->post('/users/{id}/images', \App\Action\UserImage\UserImageCreateAction::class);
 
         $group->get('/users/{id}/images', \App\Action\UserImage\UserImageViewAction::class);
 
         $group->put('/users/{id}/images', \App\Action\UserImage\UserImageUpdateAction::class);
 
+        $group->options('/socials', \App\Action\PreFlightAction::class);
+
         $group->get('/socials', \App\Action\Social\SocialListAction::class);
 
+        $group->options('/socials/{id}', \App\Action\PreFlightAction::class);
+
         $group->get('/socials/{id}', \App\Action\Social\SocialViewAction::class);
+
+        $group->options('/users/{id}/socials', \App\Action\PreFlightAction::class);
 
         $group->post('/users/{id}/socials', \App\Action\UserSocial\UserSocialCreateAction::class);
 
